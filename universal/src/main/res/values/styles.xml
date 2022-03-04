@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--对话框样式-->
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <!--加载框样式-->
+    <style name="LoadingDialogStyle" parent="DialogStyle">
+        <item name="android:backgroundDimEnabled">false</item>  <!--activity不变暗-->
+    </style>
+
+    <!--ScrollView风格-->
+    <style name="ScrollViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <!--隐藏滚动条-->
+        <item name="android:scrollbars">none</item>
+        <!--不显示波纹效果-->
+        <item name="android:overScrollMode">never</item>
+    </style>
+
+    <!--通用的RecyclerView风格-->
+    <style name="RecyclerViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <!--隐藏滚动条-->
+        <item name="android:scrollbars">none</item>
+        <!--不显示波纹效果-->
+        <item name="android:overScrollMode">never</item>
+        <!--默认线性布局-->
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+    </style>
+
+    <!--水平分界线-->
+    <style name="DividerLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">#ECECEC</item>
+    </style>
+
+    <!--向上弹出的平移动画-->
+    <style name="AnimTranslateBottom">
+        <item name="android:windowEnterAnimation">@anim/translate_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_bottom_out</item>
+    </style>
+
+    <!--向下弹出的平移动画-->
+    <style name="AnimTranslateTop">
+        <item name="android:windowEnterAnimation">@anim/translate_top_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_top_out</item>
+    </style>
+
+    <!--向左弹出的平移动画-->
+    <style name="AnimTranslateRight">
+        <item name="android:windowEnterAnimation">@anim/translate_right_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_right_out</item>
+    </style>
+
+    <!--向右弹出的平移动画-->
+    <style name="AnimTranslateLeft">
+        <item name="android:windowEnterAnimation">@anim/translate_left_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_left_out</item>
+    </style>
+
+    <!--标题栏风格-->
+    <style name="TitleBarStyle">
+        <item name="android:id">@id/title_bar</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!--加载状态布局样式-->
+    <style name="LoadingLayoutStyle">
+        <item name="android:id">@id/loading_layout</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/window_background</item>
+        <item name="android:visibility">gone</item>
+        <item name="failDescText">页面加载失败，请重试</item>
+        <item name="failActionText">刷新一下</item>
+    </style>
+
+    <!--SwipeRefreshLayout统一样式-->
+    <style name="SwipeRefreshLayoutStyle">
+        <item name="android:id">@id/swipe_refresh_layout</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!--通用文本风格-->
+    <style name="CommonTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>

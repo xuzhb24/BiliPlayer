@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="loading_layout" type="id" />
+    <item name="title_bar" type="id" />
+    <item name="swipe_refresh_layout" type="id" />
+    <item name="recycler_view" type="id" />
+    <item name="net_error_fl" type="id" />
+</resources>

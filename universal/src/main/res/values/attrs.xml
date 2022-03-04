@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--放在外层解决属性命名重复导致无法编译问题-->
+    <attr name="showDividerLine" format="boolean" />
+    <attr name="dividerColor" format="color" />
+    <attr name="dividerWidth" format="dimension" />
+    <attr name="dividerHeight" format="dimension" />
+
+    <!--标题栏属性-->
+    <declare-styleable name="TitleBar">
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftIconMargin" format="dimension" />
+        <attr name="showLeftIcon" format="boolean" />
+        <attr name="rightIcon" format="reference" />
+        <attr name="rightIconMargin" format="dimension" />
+        <attr name="showRightIcon" format="boolean" />
+        <attr name="leftText" format="string" />
+        <attr name="leftTextSize" format="dimension" />
+        <attr name="leftTextColor" format="color" />
+        <attr name="leftTextMargin" format="dimension" />
+        <attr name="titleText" format="string" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="titleTextColor" format="color" />
+        <attr name="rightText" format="string" />
+        <attr name="rightTextSize" format="dimension" />
+        <attr name="rightTextColor" format="color" />
+        <attr name="rightTextMargin" format="dimension" />
+        <attr name="showDividerLine" />
+    </declare-styleable>
+
+    <!--搜索框-->
+    <declare-styleable name="SearchLayout">
+        <attr name="searchText" format="string" />
+        <attr name="searchHint" format="string" />
+        <attr name="searchTextSize" format="dimension" />
+        <attr name="searchTextColor" format="color" />
+        <attr name="searchTextColorHint" format="color" />
+        <attr name="searchInputType" format="enum">
+            <enum name="text" value="1" />
+            <enum name="textPassword" value="0x81" />
+            <enum name="number" value="2" />
+            <enum name="numberDecimal" value="0x2002" />
+        </attr>
+    </declare-styleable>
+
+    <!--带删除按钮的输入框属性-->
+    <declare-styleable name="InputLayout">
+        <attr name="inputText" format="string" />
+        <attr name="inputTextHint" format="string" />
+        <attr name="inputTextType" format="enum">
+            <enum name="text" value="1" />
+            <enum name="password" value="0x81" />
+            <enum name="number" value="2" />
+            <enum name="numberDecimal" value="0x2002" />
+        </attr>
+        <attr name="inputTextSize" format="dimension" />
+        <attr name="inputTextColor" format="color" />
+        <attr name="inputTextColorHint" format="color" />
+        <attr name="multiLine" format="boolean" />
+        <attr name="editable" format="boolean" />
+        <attr name="showDividerLine" />
+        <attr name="dividerColor" />
+        <attr name="dividerHeight" />
+    </declare-styleable>
+
+    <!--加载状态布局-->
+    <declare-styleable name="LoadingLayout">
+        <attr name="loadingSrc" format="reference" />
+        <attr name="loadingDescText" format="string" />
+        <attr name="emptySrc" format="reference" />
+        <attr name="emptyDescText" format="string" />
+        <attr name="emptyActionText" format="string" />
+        <attr name="failSrc" format="reference" />
+        <attr name="failDescText" format="string" />
+        <attr name="failActionText" format="string" />
+        <attr name="intercept" format="boolean" />
+    </declare-styleable>
+
+    <!--仿iOS菊花加载-->
+    <declare-styleable name="LoadingView">
+        <attr name="petalColor" format="color" />
+        <attr name="petalLength" format="dimension" />
+        <attr name="petalWidth" format="dimension" />
+        <attr name="petalCount" format="integer" />
+    </declare-styleable>
+
+    <!--支持maxHeight的RecyclerView-->
+    <declare-styleable name="MaxHeightRecyclerView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+</resources>

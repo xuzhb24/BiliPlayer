@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/root_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="80dp">
+
+    <ImageView
+        android:id="@+id/loading_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tool:src="@drawable/ic_load_loading" />
+
+    <ImageView
+        android:id="@+id/empty_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tool:src="@drawable/ic_load_empty" />
+
+    <ImageView
+        android:id="@+id/fail_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tool:src="@drawable/ic_load_fail" />
+
+    <TextView
+        android:id="@+id/desc_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:includeFontPadding="false"
+        android:textColor="#a3a3a3"
+        android:textSize="15sp"
+        tool:text="页面加载失败，请重试" />
+
+    <TextView
+        android:id="@+id/action_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_loading_btn_bg"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        tool:text="刷新一下" />
+
+</LinearLayout>

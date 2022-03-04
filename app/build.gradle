@@ -1,0 +1,104 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+}
+
+android {
+    //配置自动签名
+    signingConfigs {
+        config {
+            storeFile file("../app/BasicProject.jks")
+            storePassword '123456'
+            keyAlias = 'BasicProjectRelease'
+            keyPassword '123456'
+        }
+    }
+
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
+    defaultConfig {
+        applicationId "com.android.biliplayer"
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        multiDexEnabled true
+        versionCode 100001
+        versionName "1.0.0(001)"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "int", "ENVIRONMENT", "1"  //开发环境：1：正式  2：测试
+    }
+
+    buildTypes {
+        release {
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config  //自动签名
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config  //自动签名
+        }
+    }
+
+    //删除之前生成的APK
+    delete("../app/build/outputs/apk")
+    //修改生成的APK名字
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            def fileName    //apk文件名
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                fileName = "BiliPlayer_${variant.buildType.name}_v${defaultConfig.versionName}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
+    //多渠道打包
+    flavorDimensions ("environment")
+    productFlavors {
+        official {
+            dimension "environment"
+            buildConfigField "int", "ENVIRONMENT", "1"  //正式环境
+        }
+        develop {
+            dimension "environment"
+            buildConfigField "int", "ENVIRONMENT", "2"  //测试环境
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures{
+        viewBinding = true  //视图绑定
+    }
+}
+
+dependencies {
+    implementation project(':video')
+    implementation project(':universal')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //leakcanary检测内存泄漏
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
+    //room
+//    kapt 'android.arch.persistence.room:compiler:2.2.5'
+}
