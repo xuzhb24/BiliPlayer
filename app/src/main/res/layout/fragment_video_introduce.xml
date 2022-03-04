@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    style="@style/ScrollViewStyle"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/head_iv"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tool:src="@drawable/ic_place_holder_square" />
+
+            <TextView
+                android:id="@+id/up_tv"
+                style="@style/CommonTextStyle"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="1dp"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toRightOf="@+id/head_iv"
+                app:layout_constraintTop_toTopOf="@+id/head_iv"
+                tool:text="搞笑视频" />
+
+            <TextView
+                android:id="@+id/up_desc_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="match_parent"
+                android:layout_marginStart="66dp"
+                android:layout_marginEnd="100dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/gray"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/head_iv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                tool:text="搞笑视频" />
+
+            <TextView
+                android:id="@+id/focus_tv"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/shape_focus_btn_bg"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="+ 关注"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/head_iv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/head_iv" />
+
+            <TextView
+                android:id="@+id/title_tv"
+                style="@style/CommonTextStyle"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/head_iv"
+                tool:text="靠时间分开的人，经不起见面" />
+
+            <TextView
+                android:id="@+id/comment_tv"
+                style="@style/CommonTextStyle"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="6dp"
+                android:drawableLeft="@drawable/ic_video_comment_gray"
+                android:drawablePadding="1dp"
+                android:gravity="center"
+                android:textColor="@color/gray"
+                android:textSize="11sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_tv"
+                tool:text="59" />
+
+            <TextView
+                android:id="@+id/time_tv"
+                style="@style/CommonTextStyle"
+                android:layout_marginLeft="15dp"
+                android:drawablePadding="1dp"
+                android:gravity="center"
+                android:textColor="@color/gray"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@+id/comment_tv"
+                app:layout_constraintLeft_toRightOf="@+id/comment_tv"
+                app:layout_constraintTop_toTopOf="@+id/comment_tv"
+                tool:text="2022-2-13 17:52" />
+
+            <TextView
+                android:id="@+id/praise_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="18dp"
+                android:drawableTop="@drawable/ic_praise_gray"
+                android:drawablePadding="3.5dp"
+                android:gravity="center"
+                android:text="点赞"
+                android:textColor="@color/gray"
+                android:textSize="10sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/deny_tv"
+                app:layout_constraintTop_toBottomOf="@+id/comment_tv"
+                tool:text="1067" />
+
+            <TextView
+                android:id="@+id/deny_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_deny_gray"
+                android:drawablePadding="3.5dp"
+                android:gravity="center"
+                android:text="不喜欢"
+                android:textColor="@color/gray"
+                android:textSize="10sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/praise_tv"
+                app:layout_constraintRight_toLeftOf="@+id/toubi_tv"
+                app:layout_constraintTop_toTopOf="@+id/praise_tv" />
+
+            <TextView
+                android:id="@+id/toubi_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_toubi_gray"
+                android:drawablePadding="3.5dp"
+                android:gravity="center"
+                android:text="投币"
+                android:textColor="@color/gray"
+                android:textSize="10sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/deny_tv"
+                app:layout_constraintRight_toLeftOf="@+id/collect_tv"
+                app:layout_constraintTop_toTopOf="@+id/praise_tv" />
+
+            <TextView
+                android:id="@+id/collect_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_collect_gray"
+                android:drawablePadding="3.5dp"
+                android:gravity="center"
+                android:text="收藏"
+                android:textColor="@color/gray"
+                android:textSize="10sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/toubi_tv"
+                app:layout_constraintRight_toLeftOf="@+id/share_tv"
+                app:layout_constraintTop_toTopOf="@+id/praise_tv"
+                tool:text="130" />
+
+            <TextView
+                android:id="@+id/share_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:layout_marginRight="13dp"
+                android:drawableTop="@drawable/ic_share_gray"
+                android:drawablePadding="3.5dp"
+                android:gravity="center"
+                android:text="分享"
+                android:textColor="@color/gray"
+                android:textSize="10sp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/collect_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/praise_tv"
+                tool:text="11" />
+
+            <View
+                android:id="@+id/divider_view"
+                style="@style/DividerLineStyle"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/praise_tv" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/tag_fbl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="invisible"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tag_more_tv"
+                app:layout_constraintTop_toBottomOf="@+id/divider_view" />
+
+            <TextView
+                android:id="@+id/tag_more_tv"
+                style="@style/CommonTextStyle"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="10dp"
+                android:drawableRight="@drawable/ic_arrow_down_gray"
+                android:drawablePadding="2dp"
+                android:gravity="center"
+                android:paddingRight="5dp"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toRightOf="@+id/tag_fbl"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tag_fbl"
+                tool:text="更多2个" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            style="@style/RecyclerViewStyle" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

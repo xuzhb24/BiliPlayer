@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_cl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/cover_iv"
+            android:layout_width="160dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:13.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:background="@color/black" />
+
+        <TextView
+            android:id="@+id/share_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginLeft="6dp"
+            android:layout_marginBottom="8dp"
+            android:drawableLeft="@drawable/ic_video_share_white"
+            android:drawablePadding="3.5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cover_iv"
+            app:layout_constraintLeft_toLeftOf="@id/cover_iv"
+            tool:text="223" />
+
+        <TextView
+            android:id="@+id/comment_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/ic_video_comment_white"
+            android:drawablePadding="3.5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_tv"
+            app:layout_constraintLeft_toRightOf="@id/share_tv"
+            app:layout_constraintTop_toTopOf="@id/share_tv"
+            tool:text="223" />
+
+        <TextView
+            android:id="@+id/duration_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginRight="6dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_tv"
+            app:layout_constraintRight_toRightOf="@id/cover_iv"
+            app:layout_constraintTop_toTopOf="@+id/share_tv"
+            tool:text="2:23" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="160dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="13.5sp"
+            app:layout_constraintLeft_toLeftOf="@+id/cover_iv"
+            app:layout_constraintTop_toBottomOf="@+id/cover_iv"
+            tool:text="五星红旗被他们高高举起五星红旗被他们高高举起五星红旗被他们高高举起" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

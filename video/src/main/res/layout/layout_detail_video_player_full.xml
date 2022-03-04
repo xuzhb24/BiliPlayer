@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/full_root_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D0000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+
+        <ImageView
+            android:id="@+id/full_head_iv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/full_name_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@+id/full_head_iv"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="小笑解忧" />
+
+        <TextView
+            android:id="@+id/full_focus_tv"
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/shape_focus_btn_bg"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="+ 关注"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="@+id/full_name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/full_name_tv" />
+
+        <TextView
+            android:id="@+id/full_share_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginEnd="26dp"
+            android:drawableTop="@drawable/ic_video_share_white_big"
+            android:drawablePadding="12dp"
+            android:text="分享"
+            android:textColor="#99FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/full_head_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/full_head_iv" />
+
+        <TextView
+            android:id="@+id/full_collect_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginEnd="26dp"
+            android:drawableTop="@drawable/ic_video_collect_white"
+            android:drawablePadding="13dp"
+            android:text="收藏"
+            android:textColor="#99FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/full_share_tv"
+            app:layout_constraintTop_toTopOf="@id/full_share_tv" />
+
+        <TextView
+            android:id="@+id/full_toubi_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginEnd="26dp"
+            android:drawableTop="@drawable/ic_video_toubi_white"
+            android:drawablePadding="13dp"
+            android:text="投币"
+            android:textColor="#99FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/full_collect_tv"
+            app:layout_constraintTop_toTopOf="@id/full_share_tv" />
+
+        <TextView
+            android:id="@+id/full_deny_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginEnd="26dp"
+            android:drawableTop="@drawable/ic_video_deny_white"
+            android:drawablePadding="13dp"
+            android:text="不喜欢"
+            android:textColor="#99FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/full_toubi_tv"
+            app:layout_constraintTop_toTopOf="@id/full_share_tv" />
+
+        <TextView
+            android:id="@+id/full_praise_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginEnd="26dp"
+            android:drawableTop="@drawable/ic_video_praise_white"
+            android:drawablePadding="13dp"
+            android:text="点赞"
+            android:textColor="#99FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/full_deny_tv"
+            app:layout_constraintTop_toTopOf="@id/full_share_tv" />
+
+        <View
+            android:layout_width="0.1dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="20dp"
+            android:background="#66ECECEC"
+            app:layout_constraintRight_toLeftOf="@+id/full_praise_tv"
+            app:layout_constraintTop_toTopOf="@+id/full_praise_tv" />
+
+        <TextView
+            android:id="@+id/full_repeat_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginEnd="52.1dp"
+            android:drawableTop="@drawable/ic_video_refresh"
+            android:drawablePadding="13dp"
+            android:text="重播"
+            android:textColor="#99FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/full_praise_tv"
+            app:layout_constraintTop_toTopOf="@id/full_share_tv" />
+
+        <View
+            style="@style/DividerLineStyle"
+            android:layout_height="0.1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="#66ECECEC"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/full_focus_tv" />
+
+        <TextView
+            android:id="@+id/full_advice_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginTop="35dp"
+            android:text="推荐视频"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/full_head_iv"
+            app:layout_constraintTop_toBottomOf="@+id/full_focus_tv" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/full_rv"
+            style="@style/RecyclerViewStyle"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/full_advice_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

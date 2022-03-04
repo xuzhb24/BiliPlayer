@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="15dp"
+    android:paddingTop="15dp"
+    android:paddingEnd="15dp">
+
+    <TextView
+        android:id="@+id/title_tv"
+        style="@style/CommonTextStyle"
+        android:layout_gravity="center_vertical"
+        android:text="热门评论"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/sort_tv"
+        style="@style/CommonTextStyle"
+        android:layout_gravity="center_vertical|end"
+        android:drawableLeft="@drawable/ic_reply_sort"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        android:text="按热度"
+        android:textColor="@color/gray"
+        android:textSize="14sp" />
+
+</FrameLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/small_root_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D0000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="invisible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="12dp">
+
+        <TextView
+            android:id="@+id/small_advice_tv"
+            style="@style/CommonTextStyle"
+            android:text="推荐视频"
+            android:textColor="#99FFFFFF"
+            android:textSize="13.5sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/small_cover_iv"
+            android:layout_width="128dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="24:13.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/small_advice_tv"
+            tool:background="@color/black" />
+
+        <TextView
+            android:id="@+id/small_duration_tv"
+            style="@style/CommonTextStyle"
+            android:layout_margin="6dp"
+            android:padding="2dp"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/small_cover_iv"
+            app:layout_constraintRight_toRightOf="@+id/small_cover_iv"
+            tool:text="03:33" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_video_pause"
+            app:layout_constraintBottom_toBottomOf="@+id/small_cover_iv"
+            app:layout_constraintLeft_toLeftOf="@+id/small_cover_iv"
+            app:layout_constraintRight_toRightOf="@+id/small_cover_iv"
+            app:layout_constraintTop_toTopOf="@+id/small_cover_iv" />
+
+        <TextView
+            android:id="@+id/small_title_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="0dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="15dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="1dp"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/small_cover_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/small_cover_iv"
+            tool:text="尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了尴尬了" />
+
+        <TextView
+            android:id="@+id/small_up_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginBottom="2dp"
+            android:drawableLeft="@drawable/ic_video_up_gray"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:textColor="#99FFFFFF"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/small_share_tv"
+            app:layout_constraintLeft_toLeftOf="@+id/small_title_tv"
+            tool:text="嘻嘻逗逗" />
+
+        <TextView
+            android:id="@+id/small_share_tv"
+            style="@style/CommonTextStyle"
+            android:drawableLeft="@drawable/ic_video_share_gray"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:textColor="#99FFFFFF"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/small_cover_iv"
+            app:layout_constraintLeft_toLeftOf="@+id/small_title_tv"
+            tool:text="1.2万" />
+
+        <TextView
+            android:id="@+id/small_comment_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginLeft="60dp"
+            android:drawableLeft="@drawable/ic_video_comment_gray"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:textColor="#99FFFFFF"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/small_cover_iv"
+            app:layout_constraintLeft_toLeftOf="@+id/small_title_tv"
+            tool:text="350" />
+
+        <TextView
+            android:id="@+id/small_play_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/shape_video_play_btn_bg"
+            android:gravity="center"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="立即播放"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/small_cover_iv"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/small_repeat_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/ic_video_refresh"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="重播"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/small_cover_iv" />
+
+        <TextView
+            android:id="@+id/small_share_tv2"
+            style="@style/CommonTextStyle"
+            android:layout_marginStart="15dp"
+            android:drawableLeft="@drawable/ic_video_share_white_big"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@+id/small_repeat_tv"
+            app:layout_constraintTop_toTopOf="@+id/small_repeat_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

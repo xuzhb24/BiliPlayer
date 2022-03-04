@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.android.video.player.ListVideoPlayer
+        android:id="@+id/video_player"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintDimensionRatio="1920:1080"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/head_iv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="@+id/video_player"
+        app:layout_constraintTop_toBottomOf="@+id/video_player"
+        tool:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        style="@style/CommonTextStyle"
+        android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:includeFontPadding="true"
+        android:lineSpacingExtra="1dp"
+        android:maxLines="2"
+        android:textSize="13sp"
+        android:translationY="-1dp"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/head_iv"
+        app:layout_constraintRight_toLeftOf="@+id/praise_iv"
+        app:layout_constraintTop_toTopOf="@+id/head_iv"
+        tool:text="饭制 20 美元搞笑版「黑客帝国」" />
+
+    <TextView
+        android:id="@+id/up_tv"
+        style="@style/CommonTextStyle"
+        android:layout_width="0dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/gray"
+        android:textSize="11sp"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="@+id/title_tv"
+        app:layout_constraintRight_toLeftOf="@+id/praise_iv"
+        app:layout_constraintTop_toBottomOf="@+id/title_tv"
+        tool:text="开眼剧情精选 / #剧情" />
+
+    <ImageView
+        android:id="@+id/praise_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_praise"
+        app:layout_constraintRight_toLeftOf="@+id/more_iv"
+        app:layout_constraintTop_toTopOf="@+id/title_tv" />
+
+    <TextView
+        android:id="@+id/praise_count_tv"
+        style="@style/CommonTextStyle"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/gray"
+        android:textSize="9sp"
+        app:layout_constraintLeft_toLeftOf="@+id/praise_iv"
+        app:layout_constraintTop_toTopOf="@+id/praise_iv"
+        tool:text="3256" />
+
+    <ImageView
+        android:id="@+id/more_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_dot_big"
+        app:layout_constraintBottom_toBottomOf="@id/praise_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/praise_iv" />
+
+    <View
+        style="@style/DividerLineStyle"
+        android:layout_marginTop="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/up_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

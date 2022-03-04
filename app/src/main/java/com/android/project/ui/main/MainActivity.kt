@@ -133,6 +133,9 @@ class MainActivity : CommonBaseActivity<ActivityMainBinding>(), DontSwipeBack {
     private var mLastPressTime: Long = 0
 
     override fun onBackPressed() {
+        if (mHomeFragment.onBackPressed()) {  //在首页全屏播放时先退出全屏
+            return
+        }
         val currentTimeMillis = System.currentTimeMillis()
         if (currentTimeMillis - mLastPressTime > 2 * 1000) {
             showToast("再按一次退出程序")

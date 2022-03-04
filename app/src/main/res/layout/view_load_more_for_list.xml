@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_fl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="0.1dp"
+    android:paddingTop="15dp">
+    <!--下拉加载更多-->
+    <LinearLayout
+        android:id="@+id/loading_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp">
+
+        <com.android.widget.loadingDialog.LoadingView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            app:petalColor="#676767"
+            app:petalLength="3dp"
+            app:petalWidth="1.6dp" />
+
+        <TextView
+            android:id="@+id/loading_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:includeFontPadding="false"
+            android:text="正在努力加载..."
+            android:textColor="#A3A3A3"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fail_fl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/fail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:includeFontPadding="false"
+            android:text="加载失败，请点我重试～"
+            android:textColor="#A3A3A3"
+            android:textSize="14sp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/complete_fl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:includeFontPadding="false"
+            android:text="上滑加载更多数据哦～"
+            android:textColor="#A3A3A3"
+            android:textSize="14sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/end_fl"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:paddingBottom="15dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:text="没有更多数据了～"
+            android:textColor="#A3A3A3"
+            android:textSize="14sp" />
+
+    </FrameLayout>
+
+</FrameLayout>

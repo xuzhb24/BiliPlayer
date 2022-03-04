@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3.5dp"
+        android:background="@drawable/shape_cover_video_bg"
+        android:paddingBottom="2dp">
+
+        <ImageView
+            android:id="@+id/cover_iv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="32:20"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/shape_cover_video_mask"
+            app:layout_constraintBottom_toBottomOf="@+id/cover_iv"
+            app:layout_constraintLeft_toLeftOf="@+id/cover_iv"
+            app:layout_constraintRight_toRightOf="@+id/cover_iv" />
+
+        <TextView
+            android:id="@+id/share_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginLeft="6dp"
+            android:layout_marginBottom="5dp"
+            android:drawableLeft="@drawable/ic_video_share_white"
+            android:drawablePadding="3.5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cover_iv"
+            app:layout_constraintLeft_toLeftOf="@id/cover_iv"
+            tool:text="223" />
+
+        <TextView
+            android:id="@+id/comment_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginLeft="15dp"
+            android:drawableLeft="@drawable/ic_video_comment_white"
+            android:drawablePadding="3.5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_tv"
+            app:layout_constraintLeft_toRightOf="@id/share_tv"
+            app:layout_constraintTop_toTopOf="@id/share_tv"
+            tool:text="223" />
+
+        <TextView
+            android:id="@+id/duration_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginRight="6dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_tv"
+            app:layout_constraintRight_toRightOf="@id/cover_iv"
+            app:layout_constraintTop_toTopOf="@id/share_tv"
+            tool:text="2:23" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="1dp"
+            android:maxLines="2"
+            android:minLines="2"
+            android:textSize="12.5sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cover_iv"
+            tool:text="用一个好故事，描绘生活的不可思议" />
+
+        <ImageView
+            android:id="@+id/up_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/ic_up"
+            app:layout_constraintBottom_toBottomOf="@+id/up_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/up_tv" />
+
+        <TextView
+            android:id="@+id/up_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@+id/up_iv"
+            app:layout_constraintTop_toBottomOf="@+id/title_tv"
+            tool:text="开眼精选" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="4dp"
+            android:src="@drawable/ic_dot"
+            app:layout_constraintBottom_toBottomOf="@+id/up_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/up_tv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
