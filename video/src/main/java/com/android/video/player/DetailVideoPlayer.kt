@@ -282,11 +282,6 @@ class DetailVideoPlayer : StandardGSYVideoPlayer {
         super.changeUiToCompleteShow()
         LogUtil.i(TAG, "changeUiToCompleteShow")
         binding.flowTv.gone()
-        if (!mIfCurrentIsFullscreen) {
-            binding.quitIv.visible()
-        } else {
-            binding.quitIv.gone()
-        }
         if (mReleatedVideoList.isNullOrEmpty()) {
             mBottomContainer.visible()
             binding.completeFullLayout.fullRootLl.gone()
@@ -354,8 +349,8 @@ class DetailVideoPlayer : StandardGSYVideoPlayer {
         super.hideAllWidget()
         LogUtil.i(TAG, "hideAllWidget")
         hideBottomProgressBarWhenFull()
-        binding.quitIv.gone()
         binding.flowTv.gone()
+        mOnHideAllWidgetListener?.invoke()
     }
 
     //全屏
@@ -519,7 +514,6 @@ class DetailVideoPlayer : StandardGSYVideoPlayer {
         if (!NetworkUtils.isAvailable(context)) {
             ToastUtil.showToast("当前找不到网络", true)
             binding.reloadLl.visible()
-            binding.quitIv.visible()
             return
         }
         super.startPlayLogic()
@@ -540,11 +534,6 @@ class DetailVideoPlayer : StandardGSYVideoPlayer {
         LogUtil.i(TAG, "mHadPlay:$mHadPlay isBackPressed:$isBackPressed")
         if (mHadPlay && !isBackPressed) {
             mBottomContainer.visible()
-            if (mIfCurrentIsFullscreen) {  //全屏时不显示退出按钮
-                binding.quitIv.gone()
-            } else {
-                binding.quitIv.visible()
-            }
         } else {
             //前2秒或退出时不显示底部控制栏
             mBottomContainer.gone()
@@ -586,6 +575,13 @@ class DetailVideoPlayer : StandardGSYVideoPlayer {
 
     fun setOnVideoChangeListener(listener: (id: Int?) -> Unit) {
         mOnVideoChangeListener = listener
+    }
+
+    //隐藏控件时回调
+    private var mOnHideAllWidgetListener: (() -> Unit)? = null
+
+    fun setOnHideAllWidgetListener(listener: (() -> Unit)) {
+        this.mOnHideAllWidgetListener = listener
     }
 
 }

@@ -20,28 +20,35 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
 
 /**
  * Created by xuzhb on 2022/1/11
- * Desc:封面播放器适配器，只展示封面
+ * Desc:首页-推荐、热门
  */
-class CoverVideoAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(), LoadMoreModule {
+class CommonAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(), LoadMoreModule {
 
     companion object {
-        private const val TAG = "CoverVideoAdapter"
+        private const val TAG = "RecommendAdapter"
     }
 
     init {
-        addItemType(Constant.ITEM_TYPE_SHOW_COVER, R.layout.item_cover_video1)
-        addItemType(Constant.ITEM_TYPE_LIST_PLAY, R.layout.item_cover_video2)
+        addItemType(Constant.ITEM_TYPE_SHOW_TITLE, R.layout.item_show_title)
+        addItemType(Constant.ITEM_TYPE_SHOW_COVER, R.layout.item_show_cover)
+        addItemType(Constant.ITEM_TYPE_LIST_PLAY, R.layout.item_list_play)
     }
 
     override fun convert(holder: BaseViewHolder, item: ItemBean) {
         when (item.itemType) {
-            Constant.ITEM_TYPE_SHOW_COVER -> initCoverVideo1(holder, item)
-            Constant.ITEM_TYPE_LIST_PLAY -> initCoverVideo2(holder, item)
+            Constant.ITEM_TYPE_SHOW_TITLE -> showTitle(holder, item)
+            Constant.ITEM_TYPE_SHOW_COVER -> showCover(holder, item)
+            Constant.ITEM_TYPE_LIST_PLAY -> listPlay(holder, item)
         }
     }
 
+    //显示标题
+    private fun showTitle(holder: BaseViewHolder, item: ItemBean) {
+        holder.setText(R.id.title_tv, item.data.header?.title ?: item.data.text ?: "")
+    }
+
     //只显示视频封面
-    private fun initCoverVideo1(holder: BaseViewHolder, item: ItemBean) {
+    private fun showCover(holder: BaseViewHolder, item: ItemBean) {
         showImageByCenterCrop(holder.getView(R.id.cover_iv), getVideoCover(item), 3.5f, 3.5f)
         holder.setText(R.id.share_tv, formatCountStr(getVideoShareCount(item)))
             .setText(R.id.comment_tv, formatCountStr(getVideoReplyCount(item)))
@@ -51,7 +58,7 @@ class CoverVideoAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(),
     }
 
     //列表播放视频
-    private fun initCoverVideo2(holder: BaseViewHolder, item: ItemBean) {
+    private fun listPlay(holder: BaseViewHolder, item: ItemBean) {
         val player: ListVideoPlayer = holder.getView(R.id.video_player)
         player.setData(
             formatCountStr(getVideoShareCount(item)),
@@ -109,6 +116,7 @@ class CoverVideoAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(),
                     //注意RecyclerView要先设置layoutManager再设置adapter
                     return if (getItemViewType(position) == HEADER_VIEW
                         || getItemViewType(position) == LOAD_MORE_VIEW
+                        || getItemViewType(position) == Constant.ITEM_TYPE_SHOW_TITLE
                         || getItemViewType(position) == Constant.ITEM_TYPE_LIST_PLAY
                     ) manager.spanCount else 1
                 }

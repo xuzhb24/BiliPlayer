@@ -11,23 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.base.BaseListFragment
 import com.android.project.R
-import com.android.project.adapter.CoverVideoAdapter
+import com.android.project.adapter.CommonAdapter
 import com.android.project.adapter.banner.BannerImageTitleAdapter
 import com.android.project.entity.ItemBean
 import com.android.project.server.UrlConstant
 import com.android.project.ui.detail.VideoDetailActivity
+import com.android.project.ui.detail.WebDetailActivity
 import com.android.project.util.Constant
 import com.android.project.util.FilterUtil
 import com.android.universal.databinding.LayoutListBinding
-import com.android.util.ScreenUtil
-import com.android.util.SizeUtil
-import com.android.util.StatusBarUtil
-import com.android.util.ToastUtil
+import com.android.util.*
 import com.android.video.util.ScrollCalculatorHelper
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.item_recommend_header.view.*
+import java.net.URLDecoder
 
 /**
  * Created by xuzhb on 2021/12/30
@@ -43,7 +42,7 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
     private var mScrollCalculatorHelper: ScrollCalculatorHelper? = null
     private var hasNoticeDataChange = false
 
-    override fun getAdapter() = CoverVideoAdapter()
+    override fun getAdapter() = CommonAdapter()
 
     override fun getFirstPageUrl() = UrlConstant.FEED
 
@@ -55,11 +54,11 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
     override fun handleView(savedInstanceState: Bundle?) {
         binding.rootFl.setBackgroundColor(Color.parseColor("#F3F3F5"))
         mLoadingLayout?.setBackgroundColor(Color.parseColor("#F3F3F5"))
-//        LayoutParamsUtil.setPadding(
-//            mRecyclerView!!,
-//            SizeUtil.dp2pxInt(3.5f), SizeUtil.dp2pxInt(3.5f),
-//            SizeUtil.dp2pxInt(3.5f), 0
-//        )
+        LayoutParamsUtil.setPadding(
+            mRecyclerView!!,
+            SizeUtil.dp2pxInt(3.5f), 0,
+            SizeUtil.dp2pxInt(3.5f), 0
+        )
     }
 
     override fun observerListDataChange() {
@@ -146,7 +145,16 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
                 .setLoopTime(5000)
                 .setAdapter(BannerImageTitleAdapter(list))
                 .setOnBannerListener { data, position ->
-
+                    val actionUrl = list[position].data.actionUrl ?: ""
+                    val decodeUrl = URLDecoder.decode(actionUrl, "UTF-8")
+                    LogUtil.i("WebviewActivityTAG", "decodeUrl:$decodeUrl")
+                    val title = decodeUrl.split("title=").last().split("&url").first()
+                    val url = decodeUrl.split("url=").last()
+                    if (decodeUrl.startsWith("eyepetizer://webview/?title=")) {  //网页
+                        WebDetailActivity.start(mContext, title, url)
+                    } else {
+                        showToast("当前模块暂未开放！")
+                    }
                 }.setIndicator(CircleIndicator(mContext))
                 .setIndicatorGravity(IndicatorConfig.Direction.RIGHT)
                 .setIndicatorWidth(SizeUtil.dp2pxInt(4.8f), SizeUtil.dp2pxInt(4.8f))

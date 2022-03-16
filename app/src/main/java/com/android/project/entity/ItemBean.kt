@@ -276,8 +276,8 @@ data class ItemBean(
     val adIndex: Int,
     val `data`: Data,
     val id: Int,
-    val tag: Any,
-    val trackingData: Any,
+    val tag: Any?,
+    val trackingData: Any?,
     val type: String
 ) : MultiItemEntity {
 
@@ -334,7 +334,9 @@ data class ItemBean(
         val waterMarks: Any?,
         val webAdTrack: Any?,
         val webUrl: WebUrl?,
-        val image: String?
+        val image: String?,
+        val actionUrl: String?,
+        val text: String?
     )
 
     data class Content(
@@ -369,8 +371,9 @@ data class ItemBean(
         val adIndex: Int,
         val `data`: Data,
         val id: Int,
-        val tag: Any,
-        val type: String
+        val tag: Any?,
+        val type: String,
+        val trackingData: Any?,
     )
 
     data class Author(

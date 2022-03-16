@@ -1,5 +1,6 @@
 package com.android.base
 
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
@@ -289,6 +290,14 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
             ParseUtil.showTopActivityInfo(this, ev)
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    //防止AudioManager持有Activity导致的内存泄漏
+    override fun getSystemService(name: String): Any? {
+        if (Context.AUDIO_SERVICE == name) {
+            return applicationContext.getSystemService(name)
+        }
+        return super.getSystemService(name)
     }
 
 }

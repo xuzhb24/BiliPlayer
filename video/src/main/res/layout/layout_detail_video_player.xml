@@ -190,16 +190,6 @@
         android:id="@+id/complete_full_layout"
         layout="@layout/layout_detail_video_player_full" />
 
-    <!--退出-->
-    <ImageView
-        android:id="@+id/quit_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        android:src="@drawable/ic_video_quit"
-        android:visibility="invisible" />
-
     <LinearLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"

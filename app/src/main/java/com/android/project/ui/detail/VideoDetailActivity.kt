@@ -113,6 +113,7 @@ class VideoDetailActivity : BaseActivity<ActivityVideoDetailBinding, VideoDetail
                     mOrientationUtils?.isEnable = binding.videoPlayer.isRotateWithSystem
                     isPrepared = true
                     setPlayerState(false)
+                    binding.backIv.gone()
                 }
 
                 override fun onQuitFullscreen(url: String?, vararg objects: Any?) {
@@ -143,10 +144,23 @@ class VideoDetailActivity : BaseActivity<ActivityVideoDetailBinding, VideoDetail
                     super.onClickResumeFullscreen(url, *objects)
                     setPlayerState(false)
                 }
+
+                override fun onClickBlank(url: String?, vararg objects: Any?) {
+                    super.onClickBlank(url, *objects)
+                    binding.backIv.visible()
+                }
+
+                override fun onAutoComplete(url: String?, vararg objects: Any?) {
+                    super.onAutoComplete(url, *objects)
+                    setPlayerState(true)
+                    binding.backIv.visible()
+                }
+
             }).setLockClickListener { view, lock ->
                 mOrientationUtils?.isEnable = !lock
             }.build(binding.videoPlayer)
         binding.videoPlayer.startPlayLogic()
+        setPlayerState(false)
     }
 
     override fun refreshData() {
@@ -245,16 +259,16 @@ class VideoDetailActivity : BaseActivity<ActivityVideoDetailBinding, VideoDetail
                 initPlayer(mItemBean)
                 refreshData()
             }
-            //退出页面
-            setOnChildClickListener(R.id.quit_iv) {
-                finish()
-            }
             //播放下一个视频
             setOnVideoChangeListener { id ->
                 getItemBeanById(id)?.let {
                     mItemBean = it
                     refreshData()
                 }
+            }
+            //隐藏控件时
+            setOnHideAllWidgetListener {
+                binding.backIv.gone()
             }
         }
         binding.appBarLayout.addOnOffsetChangedListener(object : OnAppBarStateChangeListener() {
@@ -270,7 +284,6 @@ class VideoDetailActivity : BaseActivity<ActivityVideoDetailBinding, VideoDetail
             finish()
         }
         binding.playTv.setOnClickListener {
-            binding.appBarLayout.setExpanded(true)
             postDelayed(300) { binding.videoPlayer.clickStart() }
             setPlayerState(false)
         }
@@ -331,14 +344,6 @@ class VideoDetailActivity : BaseActivity<ActivityVideoDetailBinding, VideoDetail
         if (isPrepared && !isOnPause) {
             binding.videoPlayer.onConfigurationChanged(this, newConfig, mOrientationUtils, true, true)
         }
-    }
-
-    //防止AudioManager持有Activity导致的内存泄漏
-    override fun getSystemService(name: String): Any? {
-        if (Context.AUDIO_SERVICE == name) {
-            return applicationContext.getSystemService(name)
-        }
-        return super.getSystemService(name)
     }
 
     //设置播放器状态

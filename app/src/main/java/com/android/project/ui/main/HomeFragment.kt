@@ -129,7 +129,7 @@ class HomeFragment : CommonBaseFragment<FragmentHomeBinding>() {
     }
 
     fun onBackPressed(): Boolean {
-        if (GSYVideoManager.backFromWindowFull(activity)) {  //全屏播放时退出全屏
+        if (activity != null && GSYVideoManager.backFromWindowFull(activity)) {  //全屏播放时退出全屏
             return true
         }
         return false

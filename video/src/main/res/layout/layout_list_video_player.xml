@@ -11,6 +11,14 @@
         android:layout_height="match_parent"
         android:gravity="center" />
 
+    <com.android.video.widget.LoadingAnimView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
     <RelativeLayout
         android:id="@+id/thumb"
         android:layout_width="match_parent"
@@ -27,6 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_video_pause_list" />
 
     </RelativeLayout>
 
@@ -208,14 +222,6 @@
             android:textSize="15sp" />
 
     </LinearLayout>
-
-    <com.android.video.widget.LoadingAnimView
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/lock_screen"

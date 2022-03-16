@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android.project.widget.CustomCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
@@ -45,32 +45,38 @@
                 app:layout_collapseMode="pin">
 
                 <FrameLayout
-                    android:id="@+id/title_fl"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_top_corners_16_solid_fa7199"
-                    android:visibility="gone">
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:id="@+id/title_fl"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_top_corners_16_solid_fa7199"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/play_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableLeft="@drawable/ic_tv_white"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="立即播放"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                    </FrameLayout>
 
                     <ImageView
                         android:id="@+id/back_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="5dp"
+                        android:layout_margin="3dp"
                         android:padding="10dp"
-                        android:src="@drawable/ic_video_quit" />
-
-                    <TextView
-                        android:id="@+id/play_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawableLeft="@drawable/ic_tv_white"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="立即播放"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:src="@drawable/ic_video_quit"
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -124,4 +130,4 @@
 
     </FrameLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.android.project.widget.CustomCoordinatorLayout>

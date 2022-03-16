@@ -6,6 +6,9 @@ package com.android.project.server
  */
 object UrlConstant {
 
+    //每日推荐
+    const val ALLREC = "http://baobab.kaiyanapp.com/api/v5/index/tab/allRec"
+
     //日报精选
     const val FEED = "http://baobab.kaiyanapp.com/api/v5/index/tab/feed"
 
