@@ -1,23 +1,23 @@
 package com.android.video.player
 
-
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Point
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.*
-import android.widget.ImageView
-import android.widget.ProgressBar
+import android.widget.*
 import com.android.util.*
 import com.android.util.glide.GlideUtil
 import com.android.util.glide.SectionRoundedCorners
 import com.android.video.R
-import com.android.video.databinding.LayoutListVideoPlayerBinding
+import com.android.video.databinding.LayoutSwitchVideoPlayerBinding
+import com.android.video.entity.VideoBean
 import com.android.video.util.VideoConfig
-import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.utils.CommonUtil
+import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.shuyu.gsyvideoplayer.utils.NetworkUtils
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
@@ -29,13 +29,13 @@ import kotlinx.android.synthetic.main.dialog_video_progress.view.*
 import kotlinx.android.synthetic.main.dialog_video_volume.view.*
 
 /**
- * Created by xuzhb on 2021/12/29
- * Desc:列表播放器
+ * Created by xuzhb on 2022/3/16
+ * Desc:上下切换播放器
  */
-class ListVideoPlayer : StandardGSYVideoPlayer {
+class SwitchVideoPlayer : StandardGSYVideoPlayer {
 
     companion object {
-        private const val TAG = "ListVideoPlayer"
+        private const val TAG = "SwitchVideoPlayer"
     }
 
     constructor(context: Context, fullFlag: Boolean) : super(context, fullFlag)
@@ -50,10 +50,13 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
     //亮度进度条的progress
     private var mDialogBrightnessProgressBar: ProgressBar? = null
 
-    private lateinit var binding: LayoutListVideoPlayerBinding
+    private lateinit var binding: LayoutSwitchVideoPlayerBinding
     private var mCoverOriginUrl = ""  //封面网络图
     private var mCoverOriginId = 0    //封面资源id
     private var mCoverDefaultRes = 0  //封面缺省图
+    private var mCurrentVideo: VideoBean? = null  //绑定的视频
+
+    private var mOnSeekBarChangeListener: SeekBar.OnSeekBarChangeListener? = null
 
     //加载封面
     fun loadCoverImage(url: String, res: Int) {
@@ -77,22 +80,20 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
         )
     }
 
-    /**
-     * 设置数据
-     * @param shareCount 分享个数
-     * @param replyCount 回复个数
-     * @param duration 时长
-     */
-    fun setData(shareCount: String, replyCount: String, duration: String) {
-        binding.shareTv.text = shareCount
-        binding.commentTv.text = replyCount
-        binding.durationTv.text = duration
+    //设置当前视频信息
+    fun setVideoInfo(video: VideoBean?) {
+        mCurrentVideo = video
+//        if (fullWindowPlayer != null) {
+//            //拷贝至全屏播放器，非全屏和全屏时的播放器是两个不同的控件
+//            (fullWindowPlayer as SwitchVideoPlayer).mCurrentVideo = video
+//        }
     }
 
     override fun initInflate(context: Context?) {
-        binding = LayoutListVideoPlayerBinding.inflate(LayoutInflater.from(context), this, true)
+        binding = LayoutSwitchVideoPlayerBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun init(context: Context?) {
         super.init(context)
         if (mThumbImageViewLayout != null && (mCurrentState == -1
@@ -101,17 +102,70 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
         ) {
             mThumbImageViewLayout.visible()
         }
-        //声音设置
-        binding.volumeIv.setOnClickListener {
-            VideoConfig.muteInTheList = !VideoConfig.muteInTheList
-            GSYVideoManager.instance().isNeedMute = VideoConfig.muteInTheList
-            setVolumeState()
+        //增加SeekBar拖动区域
+        binding.progressLl.setOnTouchListener { v, event ->
+            val seekRect = Rect()
+            mProgressBar.getHitRect(seekRect)
+            if (event.y >= seekRect.top - 500 && event.y <= seekRect.bottom + 500) {
+                val y = seekRect.top + seekRect.height() / 2f
+                var x = event.x - seekRect.left
+                if (x < 0) {
+                    x = 0f
+                } else if (x > seekRect.width()) {
+                    x = seekRect.width().toFloat()
+                }
+                val ev = MotionEvent.obtain(event.downTime, event.eventTime, event.action, x, y, event.metaState)
+                mProgressBar.onTouchEvent(ev)
+                mProgressBar?.visible()
+            }
+            false
         }
+        mProgressBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                showDragProgressTextOnSeekBar(fromUser, progress)
+                binding.currentTimeTv.text = CommonUtil.stringForTime(progress * duration / 100)
+                binding.totalTimeTv.text = CommonUtil.stringForTime(duration)
+                mOnSeekBarChangeListener?.onProgressChanged(seekBar, progress, fromUser)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                mHadSeekTouch = true
+                if (mIfCurrentIsFullscreen) {
+                    binding.timeProgressLl.gone()
+                } else {
+                    binding.timeProgressLl.visible()
+                }
+                mOnSeekBarChangeListener?.onStartTrackingTouch(seekBar)
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                if (mVideoAllCallBack != null && isCurrentMediaListener) {
+                    if (isIfCurrentIsFullscreen) {
+                        Debuger.printfLog("onClickSeekbarFullscreen")
+                        mVideoAllCallBack.onClickSeekbarFullscreen(mOriginUrl, mTitle, this)
+                    } else {
+                        Debuger.printfLog("onClickSeekbar")
+                        mVideoAllCallBack.onClickSeekbar(mOriginUrl, mTitle, this)
+                    }
+                }
+                if (gsyVideoManager != null && mHadPlay) {
+                    try {
+                        val time = seekBar!!.progress * duration / 100
+                        gsyVideoManager.seekTo(time.toLong())
+                    } catch (e: Exception) {
+                        Debuger.printfWarning(e.toString())
+                    }
+                }
+                mHadSeekTouch = false
+                binding.timeProgressLl.gone()
+                mOnSeekBarChangeListener?.onStopTrackingTouch(seekBar)
+            }
+        })
     }
 
     //将自定义的效果也设置到全屏
     override fun startWindowFullscreen(context: Context?, actionBar: Boolean, statusBar: Boolean): GSYBaseVideoPlayer {
-        val player = super.startWindowFullscreen(context, actionBar, statusBar) as ListVideoPlayer
+        val player = super.startWindowFullscreen(context, actionBar, statusBar) as SwitchVideoPlayer
         if (mCoverOriginUrl.isNotBlank()) {
             player.loadCoverImage(mCoverOriginUrl, mCoverDefaultRes)
         } else if (mCoverOriginId != 0) {
@@ -122,7 +176,7 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
 
     //显示小窗口
     override fun showSmallVideo(size: Point?, actionBar: Boolean, statusBar: Boolean): GSYBaseVideoPlayer {
-        return (super.showSmallVideo(size, actionBar, statusBar) as ListVideoPlayer).apply {
+        return (super.showSmallVideo(size, actionBar, statusBar) as SwitchVideoPlayer).apply {
             mStartButton.visibility = View.GONE
             mStartButton = null
         }
@@ -131,7 +185,10 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
     //克隆切换参数
     override fun cloneParams(from: GSYBaseVideoPlayer?, to: GSYBaseVideoPlayer?) {
         super.cloneParams(from, to)
-        (to as ListVideoPlayer).mShowFullAnimation = (from as ListVideoPlayer).mShowFullAnimation
+        LogUtil.i(TAG, "cloneParams")
+        //这里做一些状态的保存，不然旋转屏幕时会丢失数据
+        (to as SwitchVideoPlayer).mShowFullAnimation = (from as SwitchVideoPlayer).mShowFullAnimation
+        to.mCurrentVideo = from.mCurrentVideo
     }
 
     //退出window层播放全屏效果
@@ -153,7 +210,7 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
         val vp: ViewGroup? = CommonUtil.scanForActivity(context).findViewById(Window.ID_ANDROID_CONTENT)
         val oldF: View? = vp?.findViewById(fullId)
         if (oldF != null) {
-            (oldF as ListVideoPlayer).mIfCurrentIsFullscreen = false
+            (oldF as SwitchVideoPlayer).mIfCurrentIsFullscreen = false
         }
         if (delay == 0) {
             backToNormal()
@@ -186,15 +243,6 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
     }
 
     //点击播放器
-    override fun onClick(v: View?) {
-        if (mIfCurrentIsFullscreen) {
-            super.onClick(v)
-        } else {
-            mOnNormalClickListener?.invoke()
-        }
-    }
-
-    //点击播放器
     override fun onClickUiToggle(e: MotionEvent?) {
         if (mIfCurrentIsFullscreen && mLockCurScreen && mNeedLockFull) {
             setViewShowState(mLockScreen, VISIBLE)
@@ -202,8 +250,11 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
         }
         LogUtil.i(TAG, "onClickUiToggle")
         super.onClickUiToggle(e)
-        darkSmallControll(false)
         hideBottomProgressBarWhenFull()
+        if (!mIfCurrentIsFullscreen) {
+            mBottomContainer.visible()
+            clickStartIcon()
+        }
     }
 
     //显示
@@ -211,59 +262,90 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
         super.changeUiToNormal()
         LogUtil.i(TAG, "changeUiToNormal")
         mBottomContainer.visible()
-        if (isIfCurrentIsFullscreen) {
-            binding.smallDataLl.gone()
-            binding.fullBottomControlLl.visible()
-            binding.durationTv.gone()
+        setBottomControlLayoutState()
+        binding.switchPauseIv.gone()
+        if (!mIfCurrentIsFullscreen) {
+            mTopContainer.gone()
+            mProgressBar.gone()
+            mBottomProgressBar.visible()
+            mCurrentTimeTextView.gone()
+            mTotalTimeTextView.gone()
         } else {
-            binding.smallDataLl.visible()
-            binding.fullBottomControlLl.gone()
-            binding.durationTv.visible()
+            mCurrentTimeTextView.visible()
+            mTotalTimeTextView.visible()
         }
-        binding.smallControlLl.invisible()
+        LayoutParamsUtil.setMargin(
+            binding.fullscreen,
+            0, if (mIfCurrentIsFullscreen) SizeUtil.dp2pxInt(10f) else 0,
+            if (mIfCurrentIsFullscreen) SizeUtil.dp2pxInt(5f) else 0,
+            if (mIfCurrentIsFullscreen) SizeUtil.dp2pxInt(2f) else SizeUtil.dp2pxInt(6f)
+        )
+        if (mIfCurrentIsFullscreen) {
+            (binding.surfaceContainer.layoutParams as RelativeLayout.LayoutParams).removeRule(RelativeLayout.ABOVE)
+            binding.surfaceContainer.translationY = 0f
+        } else {
+            (binding.surfaceContainer.layoutParams as RelativeLayout.LayoutParams).addRule(RelativeLayout.ABOVE, R.id.layout_bottom)
+            binding.surfaceContainer.translationY = SizeUtil.dp2px(10f)
+        }
     }
 
     //准备
     override fun changeUiToPreparingShow() {
         super.changeUiToPreparingShow()
         LogUtil.i(TAG, "changeUiToPreparingShow")
+        mStartButton.visible()
+        if (!mIfCurrentIsFullscreen) {
+            mTopContainer.gone()
+            mProgressBar.gone()
+            mBottomProgressBar.visible()
+        }
     }
 
     //缓冲
     override fun changeUiToPlayingBufferingShow() {
         super.changeUiToPlayingBufferingShow()
         LogUtil.i(TAG, "changeUiToPlayingBufferingShow")
+        mStartButton.visible()
+        if (!mIfCurrentIsFullscreen) {
+            mTopContainer.gone()
+            mProgressBar.gone()
+            mBottomProgressBar.visible()
+        }
     }
 
     //开始播放
     override fun changeUiToPlayingShow() {
         super.changeUiToPlayingShow()
         LogUtil.i(TAG, "changeUiToPlayingShow")
-        darkSmallControll(false)
-        if (isIfCurrentIsFullscreen) {  //全屏
-            binding.smallDataLl.gone()
-            binding.fullBottomControlLl.visible()
-            binding.smallControlLl.gone()
-        } else {
-            binding.smallDataLl.visible()
-            binding.fullBottomControlLl.gone()
-            binding.smallControlLl.visible()
+        setBottomControlLayoutState()
+        binding.switchPauseIv.gone()
+        if (!mIfCurrentIsFullscreen) {
+            mTopContainer.gone()
+            mProgressBar.gone()
+            mBottomProgressBar.visible()
         }
-        binding.durationTv.gone()
+        //设置视频播放尺寸
+        val ratio = (mCurrentVideo?.width ?: 1920) / (mCurrentVideo?.height ?: 1080)
+        if (ratio <= 1080 / 1920) {
+            GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL)  //全屏
+        } else {
+            GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_DEFAULT)  //默认比例
+        }
     }
 
     //暂停播放
     override fun changeUiToPauseShow() {
         super.changeUiToPauseShow()
         LogUtil.i(TAG, "changeUiToPauseShow")
-        if (isIfCurrentIsFullscreen) {
-            binding.smallDataLl.gone()
-            binding.fullBottomControlLl.visible()
-            binding.smallControlLl.gone()
+        setBottomControlLayoutState()
+        if (mIfCurrentIsFullscreen) {
+            binding.switchPauseIv.gone()
         } else {
-            binding.smallDataLl.visible()
-            binding.fullBottomControlLl.gone()
-            binding.smallControlLl.visible()
+            mTopContainer.gone()
+            binding.switchPauseIv.visible()
+        }
+        if (!mIfCurrentIsFullscreen) {
+            mProgressBar.visible()
         }
     }
 
@@ -276,6 +358,9 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
     //播放完成
     override fun changeUiToCompleteShow() {
         super.changeUiToCompleteShow()
+        if (!mIfCurrentIsFullscreen) {
+            mTopContainer.gone()
+        }
         LogUtil.i(TAG, "changeUiToCompleteShow")
     }
 
@@ -283,30 +368,29 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
     override fun hideAllWidget() {
         super.hideAllWidget()
         LogUtil.i(TAG, "hideAllWidget")
-        darkSmallControll(true)
         hideBottomProgressBarWhenFull()
+        if (!mIfCurrentIsFullscreen) {
+            mBottomContainer.visible()
+            mProgressBar.gone()
+        }
     }
 
-    override fun startAfterPrepared() {
-        super.startAfterPrepared()
-        LogUtil.i(TAG, "startAfterPrepared")
-        GSYVideoManager.instance().isNeedMute = VideoConfig.muteInTheList
-    }
-
+    //播放完成
     override fun onAutoCompletion() {
         super.onAutoCompletion()
-        if (!mIfCurrentIsFullscreen) {
-            clickStartIcon()  //非全屏时重新开始播放
-        }
+        clickStartIcon()  //重新开始播放
+    }
+
+    //全屏
+    override fun resolveFullVideoShow(context: Context?, gsyVideoPlayer: GSYBaseVideoPlayer?, frameLayout: FrameLayout?) {
+        super.resolveFullVideoShow(context, gsyVideoPlayer, frameLayout)
+        LogUtil.i(TAG, "resolveFullVideoShow")
+        mBottomContainer.visible()
     }
 
     //全屏返回
     override fun resolveNormalVideoShow(oldF: View?, vp: ViewGroup?, gsyVideoPlayer: GSYVideoPlayer?) {
         super.resolveNormalVideoShow(oldF, vp, gsyVideoPlayer)
-        //全屏返回时如果是暂停状态或者是播放完成状态，则恢复播放
-        if (mCurrentState == GSYVideoView.CURRENT_STATE_PAUSE || mCurrentState == GSYVideoView.CURRENT_STATE_AUTO_COMPLETE) {
-            clickStartIcon()
-        }
     }
 
     override fun updateStartImage() {
@@ -321,12 +405,7 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
         } else {
             super.updateStartImage()
         }
-        setVolumeState()
     }
-
-    override fun getShrinkImageRes() = R.drawable.ic_video_shrink
-
-    override fun getEnlargeImageRes() = R.drawable.ic_video_enlarge
 
     //自定义音量进度条
     override fun showVolumeDialog(deltaY: Float, volumePercent: Int) {
@@ -431,33 +510,35 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
 
     override fun startPlayLogic() {
         if (!NetworkUtils.isAvailable(context)) {
-            ToastUtil.showToast("当前找不到网络", true)
+            ToastUtil.showToast("加载失败", true)
             return
         }
         if (!NetworkUtil.isWifiConnected(context) && !VideoConfig.hasNoticeWithoutWifi) {
             VideoConfig.hasNoticeWithoutWifi = true
-            ToastUtil.showToast("移动网络播放中，请注意流量消耗", true)
+            ToastUtil.showToast("正在使用非WiFi网络，请注意流量消耗", true)
         }
         super.startPlayLogic()
     }
 
-    private fun darkSmallControll(dark: Boolean) {
-        if (dark) {
-            binding.fullscreen.imageTintList = ColorStateList.valueOf(Color.parseColor("#80FFFFFF"))
-            binding.danmaIv.imageTintList = ColorStateList.valueOf(Color.parseColor("#80FFFFFF"))
-            binding.volumeIv.imageTintList = ColorStateList.valueOf(Color.parseColor("#80FFFFFF"))
-        } else {
-            binding.fullscreen.imageTintList = ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
-            binding.danmaIv.imageTintList = ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
-            binding.volumeIv.imageTintList = ColorStateList.valueOf(Color.parseColor("#FFFFFF"))
-        }
+    //播放结束
+    override fun release() {
+        LogUtil.i(TAG, "release")
+        cancelProgressTimer()
+        cancelDismissControlViewTimer()
+        super.release()
     }
 
-    private fun setVolumeState() {
-        if (VideoConfig.muteInTheList) {
-            binding.volumeIv.setImageResource(R.drawable.ic_volume_close)
+    private fun setBottomControlLayoutState() {
+        if (isIfCurrentIsFullscreen) {  //全屏
+            mBottomContainer.setBackgroundResource(R.drawable.shape_video_mask)
+            binding.smallBottomControlLl.gone()
+            binding.fullBottomControlCl.visible()
+            binding.fullPraiseCountTv.text = formatCountStr(mCurrentVideo?.collectionCount, "")
+            binding.fullCommentCountTv.text = formatCountStr(mCurrentVideo?.replyCount, "")
         } else {
-            binding.volumeIv.setImageResource(R.drawable.ic_volume_open)
+            mBottomContainer.setBackgroundColor(Color.TRANSPARENT)
+            binding.smallBottomControlLl.visible()
+            binding.fullBottomControlCl.gone()
         }
     }
 
@@ -470,11 +551,8 @@ class ListVideoPlayer : StandardGSYVideoPlayer {
         }
     }
 
-    //非全屏时点击整个控件
-    private var mOnNormalClickListener: (() -> Unit)? = null
-
-    fun setOnNormalClickListener(listener: (() -> Unit)) {
-        this.mOnNormalClickListener = listener
+    fun setOnSeekBarChangeListener(listener: SeekBar.OnSeekBarChangeListener) {
+        mOnSeekBarChangeListener = listener
     }
 
 }

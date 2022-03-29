@@ -13,7 +13,7 @@ object ConvertEntityUtil {
         if (itemBean == null) {
             return null
         }
-        if (!FilterUtil.isVideo(itemBean)) {
+        if (getVideoPlayUrl(itemBean).isNullOrBlank()) {
             return null
         }
         return VideoBean(
@@ -22,10 +22,13 @@ object ConvertEntityUtil {
             getVideoCover(itemBean),
             getVideoDuration(itemBean),
             getVideoPlayUrl(itemBean),
+            getVideoCollectionCount(itemBean),
             getVideoReplyCount(itemBean),
             getVideoShareCount(itemBean),
             getVideoAuthor(itemBean)?.name ?: getFirstTag(itemBean)?.name ?: "",
-            getVideoAuthor(itemBean)?.icon ?: getFirstTag(itemBean)?.headerImage ?: ""
+            getVideoAuthor(itemBean)?.icon ?: getFirstTag(itemBean)?.headerImage ?: "",
+            itemBean.data.content?.data?.width,
+            itemBean.data.content?.data?.height,
         )
     }
 

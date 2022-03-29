@@ -14,12 +14,12 @@ import com.android.project.entity.ItemBean
 import com.android.project.server.UrlConstant
 import com.android.project.ui.detail.VideoDetailActivity
 import com.android.project.util.Constant
-import com.android.project.widget.LoadMoreViewForList
 import com.android.universal.databinding.LayoutListBinding
 import com.android.util.LayoutParamsUtil
 import com.android.util.ScreenUtil
 import com.android.util.SizeUtil
-import com.android.video.util.ScrollCalculatorHelper
+import com.android.video.util.AutoPlayScrollListener
+import com.android.widget.recyclerView.CustomLoadMoreView
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 
@@ -34,7 +34,7 @@ class HotFragment : BaseListFragment<ItemBean, LayoutListBinding, CommonListView
     }
 
     private var isFullScreen = false
-    private var mScrollCalculatorHelper: ScrollCalculatorHelper? = null
+    private var mAutoPlayScrollListener: AutoPlayScrollListener? = null
 
     override fun getAdapter() = CommonAdapter()
 
@@ -44,7 +44,7 @@ class HotFragment : BaseListFragment<ItemBean, LayoutListBinding, CommonListView
         mRecyclerView?.layoutManager = GridLayoutManager(context, 2)
         mAdapter = getAdapter()
         if (mAdapter is LoadMoreModule) {  //上拉加载更多
-            mAdapter.loadMoreModule.loadMoreView = LoadMoreViewForList()  //增加无数据时的脚布局高度，以便最后一个Item能够自动播放视频
+            mAdapter.loadMoreModule.loadMoreView = CustomLoadMoreView(R.layout.view_load_more_for_list)  //增加无数据时的脚布局高度，以便最后一个Item能够自动播放视频
             mAdapter.loadMoreModule.setOnLoadMoreListener {
                 viewModel.loadData(mNextPageUrl, mLoadingLayout != null, mLoadingLayout == null && isFirstLoad())
             }
@@ -65,12 +65,12 @@ class HotFragment : BaseListFragment<ItemBean, LayoutListBinding, CommonListView
     override fun initListener() {
         val playTop = ScreenUtil.getScreenHeight() / 2 - SizeUtil.dp2pxInt(300f)
         val playBottom = ScreenUtil.getScreenHeight() / 2 + SizeUtil.dp2pxInt(300f)
-        mScrollCalculatorHelper = ScrollCalculatorHelper(R.id.video_player, playTop, playBottom)
+        mAutoPlayScrollListener = AutoPlayScrollListener(R.id.video_player, playTop, playBottom)
         val manager: LinearLayoutManager = mRecyclerView!!.layoutManager as LinearLayoutManager
         mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                mScrollCalculatorHelper?.onScrollStateChanged(recyclerView, newState)
+                mAutoPlayScrollListener?.onScrollStateChanged(recyclerView, newState)
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -79,7 +79,7 @@ class HotFragment : BaseListFragment<ItemBean, LayoutListBinding, CommonListView
                 val lastVisibleItem = manager.findLastVisibleItemPosition()
                 //滑动自动播放
                 if (!isFullScreen) {
-                    mScrollCalculatorHelper?.visibleCount = lastVisibleItem - firstVisibleItem
+                    mAutoPlayScrollListener?.visibleCount = lastVisibleItem - firstVisibleItem
                 }
             }
         })
@@ -138,7 +138,7 @@ class HotFragment : BaseListFragment<ItemBean, LayoutListBinding, CommonListView
         GSYVideoManager.onResume()
         if (hasDataLoadedSuccess) {
             //切换回来后播放当前页面可见的视频
-            mScrollCalculatorHelper?.onScrollStateChanged(mRecyclerView, 0)
+            mAutoPlayScrollListener?.onScrollStateChanged(mRecyclerView, 0)
         }
     }
 

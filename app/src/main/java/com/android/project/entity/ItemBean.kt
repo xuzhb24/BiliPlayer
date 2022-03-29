@@ -336,7 +336,10 @@ data class ItemBean(
         val webUrl: WebUrl?,
         val image: String?,
         val actionUrl: String?,
-        val text: String?
+        val text: String?,
+        val owner: Owner?,
+        val width: Int?,
+        val height: Int?
     )
 
     data class Content(
@@ -461,6 +464,30 @@ data class ItemBean(
         val name: String,
         val size: Int,
         val url: String
+    )
+
+    data class Owner(
+        val actionUrl: String,
+        val area: Any,
+        val avatar: String,
+        val birthday: Any,
+        val city: Any,
+        val country: Any,
+        val cover: String,
+        val description: String,
+        val expert: Boolean,
+        val followed: Boolean,
+        val gender: String,
+        val ifPgc: Boolean,
+        val job: Any,
+        val library: String,
+        val limitVideoOpen: Boolean,
+        val nickname: String,
+        val registDate: Long,
+        val releaseDate: Long,
+        val uid: Int,
+        val university: Any,
+        val userType: String
     )
 
     override var itemType: Int = Constant.ITEM_TYPE_LIST_PLAY

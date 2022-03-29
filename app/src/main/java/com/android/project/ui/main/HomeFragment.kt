@@ -36,14 +36,14 @@ class HomeFragment : CommonBaseFragment<FragmentHomeBinding>() {
 
         private const val TITLE_HOT = "热门"
         private const val TITLE_RECOMMEND = "推荐"
-        private const val TITLE_DAILY = "日报"
+        private const val TITLE_COMMUNITY = "社区"
         private const val TITLE_WEEK = "周榜"
         private const val TITLE_MONTH = "月榜"
         private const val TITLE_TOTAL = "总榜"
     }
 
     private val mTitleList: MutableList<String> = mutableListOf(
-        TITLE_HOT, TITLE_RECOMMEND, TITLE_DAILY,
+        TITLE_HOT, TITLE_RECOMMEND, TITLE_COMMUNITY,
         TITLE_WEEK, TITLE_MONTH, TITLE_TOTAL
     )
     private var mFragmentPagerAdapter: FragmentPagerAdapter? = null
@@ -114,7 +114,7 @@ class HomeFragment : CommonBaseFragment<FragmentHomeBinding>() {
             return when (mList[position]) {
                 TITLE_HOT -> HotFragment.newInstance()
                 TITLE_RECOMMEND -> RecommendFragment.newInstance()
-                TITLE_DAILY -> DailyPaperFragment.newInstance()
+                TITLE_COMMUNITY -> CommunityFragment.newInstance()
                 TITLE_WEEK -> WeekRankFragment.newInstance()
                 TITLE_MONTH -> MonthRankFragment.newInstance()
                 TITLE_TOTAL -> TotalRankFragment.newInstance()

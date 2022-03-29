@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_top_corners_6_solid_ffffff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/count_tv"
+        style="@style/CommonTextStyle"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        tool:text="16条评论" />
+
+    <FrameLayout
+        android:id="@+id/content_fl"
+        android:layout_width="match_parent"
+        android:layout_height="450dp" />
+
+</LinearLayout>

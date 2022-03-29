@@ -12,8 +12,8 @@ import com.android.project.databinding.FragmentVideoReplyBinding
 import com.android.project.entity.ReplyBean
 import com.android.project.server.UrlConstant
 import com.android.project.util.FilterUtil
-import com.android.project.widget.LoadMoreViewForReply
 import com.android.util.LogUtil
+import com.android.widget.recyclerView.CustomLoadMoreView
 import com.chad.library.adapter.base.module.LoadMoreModule
 import kotlinx.android.synthetic.main.item_video_reply_header.view.*
 
@@ -45,7 +45,7 @@ class VideoReplyFragment : BaseListFragment<ReplyBean, FragmentVideoReplyBinding
     override fun initAdapter() {
         mAdapter = getAdapter()
         if (mAdapter is LoadMoreModule) {  //上拉加载更多
-            mAdapter.loadMoreModule.loadMoreView = LoadMoreViewForReply()  //增加无数据时的脚布局高度
+            mAdapter.loadMoreModule.loadMoreView = CustomLoadMoreView(R.layout.view_load_more_for_reply)  //增加无数据时的脚布局高度
             mAdapter.loadMoreModule.setOnLoadMoreListener {
                 viewModel.loadData(mNextPageUrl, mLoadingLayout != null, mLoadingLayout == null && isFirstLoad())
             }

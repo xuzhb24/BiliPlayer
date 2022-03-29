@@ -16,19 +16,10 @@
 
         <ProgressBar
             style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:indeterminateTint="#FB7299" />
 
-        <TextView
-            android:id="@+id/loading_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:includeFontPadding="false"
-            android:text="加载中..."
-            android:textColor="#A3A3A3"
-            android:textSize="13sp" />
     </LinearLayout>
 
     <FrameLayout
@@ -70,17 +61,19 @@
     <FrameLayout
         android:id="@+id/end_fl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:paddingBottom="15dp"
         android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:includeFontPadding="false"
             android:text="没有更多数据了～"
             android:textColor="#A3A3A3"
             android:textSize="13sp" />
+
     </FrameLayout>
+
 </FrameLayout>

@@ -82,6 +82,11 @@
             android:name=".ui.detail.VideoDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
+        <!--上下切换视频详情页-->
+        <activity
+            android:name=".ui.detail.SwitchDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait" />
         <!--网页-->
         <activity
             android:name=".ui.detail.WebDetailActivity"

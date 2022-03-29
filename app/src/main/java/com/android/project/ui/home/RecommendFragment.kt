@@ -21,7 +21,9 @@ import com.android.project.util.Constant
 import com.android.project.util.FilterUtil
 import com.android.universal.databinding.LayoutListBinding
 import com.android.util.*
-import com.android.video.util.ScrollCalculatorHelper
+import com.android.video.util.AutoPlayScrollListener
+import com.android.widget.recyclerView.CustomLoadMoreView
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
@@ -39,7 +41,7 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
     }
 
     private var isFullScreen = false
-    private var mScrollCalculatorHelper: ScrollCalculatorHelper? = null
+    private var mAutoPlayScrollListener: AutoPlayScrollListener? = null
     private var hasNoticeDataChange = false
 
     override fun getAdapter() = CommonAdapter()
@@ -48,7 +50,14 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
 
     override fun initAdapter() {
         mRecyclerView?.layoutManager = GridLayoutManager(context, 2)
-        super.initAdapter()
+        mAdapter = getAdapter()
+        if (mAdapter is LoadMoreModule) {  //上拉加载更多
+            mAdapter.loadMoreModule.loadMoreView = CustomLoadMoreView(R.layout.view_load_more_for_recommend)
+            mAdapter.loadMoreModule.setOnLoadMoreListener {
+                viewModel.loadData(mNextPageUrl, mLoadingLayout != null, mLoadingLayout == null && isFirstLoad())
+            }
+        }
+        mRecyclerView?.adapter = mAdapter
     }
 
     override fun handleView(savedInstanceState: Bundle?) {
@@ -71,12 +80,12 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
     override fun initListener() {
         val playTop = ScreenUtil.getScreenHeight() / 2 - SizeUtil.dp2pxInt(300f)
         val playBottom = ScreenUtil.getScreenHeight() / 2 + SizeUtil.dp2pxInt(300f)
-        mScrollCalculatorHelper = ScrollCalculatorHelper(R.id.video_player, playTop, playBottom)
+        mAutoPlayScrollListener = AutoPlayScrollListener(R.id.video_player, playTop, playBottom)
         val manager: LinearLayoutManager = mRecyclerView!!.layoutManager as LinearLayoutManager
         mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                mScrollCalculatorHelper?.onScrollStateChanged(recyclerView, newState)
+                mAutoPlayScrollListener?.onScrollStateChanged(recyclerView, newState)
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -85,7 +94,7 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
                 val lastVisibleItem = manager.findLastVisibleItemPosition()
                 //滑动自动播放
                 if (!isFullScreen) {
-                    mScrollCalculatorHelper?.visibleCount = lastVisibleItem - firstVisibleItem
+                    mAutoPlayScrollListener?.visibleCount = lastVisibleItem - firstVisibleItem
                 }
             }
         })
@@ -129,7 +138,7 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
         GSYVideoManager.onResume()
         if (hasDataLoadedSuccess) {
             //切换回来后播放当前页面可见的视频
-            mScrollCalculatorHelper?.onScrollStateChanged(mRecyclerView, 0)
+            mAutoPlayScrollListener?.onScrollStateChanged(mRecyclerView, 0)
         }
     }
 

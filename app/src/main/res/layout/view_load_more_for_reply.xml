@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_fl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,12 +14,11 @@
         android:orientation="horizontal"
         android:paddingBottom="15dp">
 
-        <com.android.widget.loadingDialog.LoadingView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            app:petalColor="#676767"
-            app:petalLength="3dp"
-            app:petalWidth="1.6dp" />
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="#FB7299" />
 
         <TextView
             android:id="@+id/loading_tv"
@@ -28,9 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:includeFontPadding="false"
-            android:text="正在努力加载..."
+            android:text="加载中..."
             android:textColor="#A3A3A3"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
+
     </LinearLayout>
 
     <FrameLayout
@@ -48,7 +47,7 @@
             android:includeFontPadding="false"
             android:text="加载失败，请点我重试～"
             android:textColor="#A3A3A3"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
     </FrameLayout>
 
@@ -66,7 +65,7 @@
             android:includeFontPadding="false"
             android:text="上滑加载更多数据哦～"
             android:textColor="#A3A3A3"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
     </FrameLayout>
 
     <FrameLayout
@@ -83,7 +82,7 @@
             android:includeFontPadding="false"
             android:text="再怎么找也没有啦"
             android:textColor="#A3A3A3"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
     </FrameLayout>
 

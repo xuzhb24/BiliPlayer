@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <com.android.video.player.SwitchVideoPlayer
+        android:id="@+id/video_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_dot_while"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/share_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="60dp"
+            android:layout_marginBottom="85dp"
+            android:drawableTop="@drawable/ic_share_switch"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tool:text="6663" />
+
+        <TextView
+            android:id="@+id/collect_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="60dp"
+            android:layout_marginBottom="20dp"
+            android:drawableTop="@drawable/ic_collect_switch"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/share_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            tool:text="1.2万" />
+
+        <TextView
+            android:id="@+id/comment_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="60dp"
+            android:layout_marginBottom="20dp"
+            android:drawableTop="@drawable/ic_comment_switch"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/collect_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            tool:text="349" />
+
+        <TextView
+            android:id="@+id/praise_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="60dp"
+            android:layout_marginBottom="20dp"
+            android:drawableTop="@drawable/ic_praise_switch"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/comment_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            tool:text="12.1万" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="85dp"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="13.5sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tool:text="人类迷惑行为人类迷惑行为人类迷惑行为人类迷惑行为人类迷惑行为人类迷惑行为" />
+
+        <View
+            android:id="@+id/head_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/shape_oval_solid_ffffff_size_40"
+            app:layout_constraintBottom_toTopOf="@+id/title_tv"
+            app:layout_constraintLeft_toLeftOf="@id/title_tv" />
+
+        <ImageView
+            android:id="@+id/head_iv"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            app:layout_constraintBottom_toBottomOf="@id/head_view"
+            app:layout_constraintLeft_toLeftOf="@+id/head_view"
+            app:layout_constraintRight_toRightOf="@+id/head_view"
+            app:layout_constraintTop_toTopOf="@+id/head_view" />
+
+        <TextView
+            android:id="@+id/name_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/colorOnPrimary"
+            android:textSize="13.5sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/head_view"
+            app:layout_constraintTop_toTopOf="@+id/head_view"
+            tool:text="米错米错" />
+
+        <TextView
+            android:id="@+id/focus_tv"
+            android:layout_width="70dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/shape_focus_btn_bg2"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="+ 关注"
+            android:textColor="@color/white"
+            android:textSize="12.5sp"
+            android:translationY="-3dp"
+            app:layout_constraintLeft_toRightOf="@+id/name_tv"
+            app:layout_constraintTop_toTopOf="@+id/head_view" />
+
+        <TextView
+            android:id="@+id/desc_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="200dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@+id/name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/name_tv"
+            tool:text="米错米错米错米错米错米错米错米错米错米错米错米错米错米错" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

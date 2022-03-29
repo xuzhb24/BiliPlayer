@@ -1,18 +1,24 @@
 package com.android.video.util
 
+import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Rect
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android.util.LogUtil
+import com.android.util.NetworkUtil
 import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.R
+import com.shuyu.gsyvideoplayer.utils.NetworkUtils
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer
 
 /**
  * Created by xuzhb on 2022/1/27
- * Desc:计算滑动，自动播放的帮助类
+ * Desc:RecyclerView列表自动播放监听类
  */
-class ScrollCalculatorHelper(
+class AutoPlayScrollListener(
     private val playId: Int,
     private val rangeTop: Int,
     private val rangeBottom: Int
@@ -90,9 +96,36 @@ class ScrollCalculatorHelper(
                 //中心点在播放区域内
                 if (rangePosition in rangeTop..rangeBottom) {
                     it.startPlayLogic()
+//                    startPlayLogic(it, it.context)
                 }
             }
         }
+    }
+
+    private fun startPlayLogic(gsyBaseVideoPlayer: GSYBaseVideoPlayer, context: Context) {
+        if (!NetworkUtil.isWifiConnected(context)) {
+            showWifiDialog(gsyBaseVideoPlayer, context)
+            return
+        }
+        gsyBaseVideoPlayer.startPlayLogic()
+    }
+
+    private fun showWifiDialog(gsyBaseVideoPlayer: GSYBaseVideoPlayer, context: Context) {
+        if (!NetworkUtils.isAvailable(context)) {
+            Toast.makeText(context, context.resources.getString(R.string.no_net), Toast.LENGTH_LONG).show()
+            return
+        }
+        AlertDialog.Builder(context).apply {
+            setMessage(context.resources.getString(R.string.tips_not_wifi))
+            setPositiveButton(context.resources.getString(R.string.tips_not_wifi_confirm)) { dialog, which ->
+                dialog.dismiss()
+                gsyBaseVideoPlayer.startPlayLogic()
+            }
+            setNegativeButton(context.resources.getString(R.string.tips_not_wifi_cancel)) { dialog, which ->
+                dialog.dismiss()
+            }
+            create()
+        }.show()
     }
 
 }
