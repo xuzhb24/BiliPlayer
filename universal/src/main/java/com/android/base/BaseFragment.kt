@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
@@ -304,6 +305,19 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel> : Fragment(), 
         }
         context?.unregisterReceiver(mNetReceiver)
         mNetReceiver = null
+    }
+
+    //解决RecyclerView和SwipeRefreshLayout的滑动冲突
+    protected fun disposeScroll() {
+        if (mSwipeRefreshLayout != null && mRecyclerView != null && mRecyclerView!!.layoutManager is LinearLayoutManager) {
+            val manager = mRecyclerView!!.layoutManager as LinearLayoutManager
+            mRecyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    mSwipeRefreshLayout!!.isEnabled = manager.findFirstVisibleItemPosition() == 0
+                }
+            })
+        }
     }
 
 }

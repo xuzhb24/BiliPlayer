@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.android.base.BaseListFragment
 import com.android.project.adapter.CommunityAdapter
 import com.android.project.entity.ItemBean
+import com.android.project.server.UrlConstant
+import com.android.project.ui.common.CommonListViewModel
 import com.android.project.ui.detail.SwitchDetailActivity
 import com.android.project.util.getVideoDescription
 import com.android.project.util.getVideoPlayUrl
@@ -27,7 +29,7 @@ class CommunityFragment : BaseListFragment<ItemBean, LayoutListBinding, CommonLi
 
     override fun getAdapter() = CommunityAdapter()
 
-    override fun getFirstPageUrl(): String = "http://baobab.kaiyanapp.com/api/v7/community/tab/rec"
+    override fun getFirstPageUrl(): String = UrlConstant.REC
 
     override fun initAdapter() {
         mRecyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

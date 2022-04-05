@@ -1,30 +1,23 @@
 package com.android.project.ui.home
 
-import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.android.base.BaseListFragment
 import com.android.project.R
-import com.android.project.adapter.CommonAdapter
+import com.android.project.adapter.CommonHomeAdapter
 import com.android.project.adapter.banner.BannerImageTitleAdapter
 import com.android.project.entity.ItemBean
 import com.android.project.server.UrlConstant
+import com.android.project.ui.common.CommonListPlayFragment
 import com.android.project.ui.detail.VideoDetailActivity
 import com.android.project.ui.detail.WebDetailActivity
 import com.android.project.util.Constant
 import com.android.project.util.FilterUtil
-import com.android.universal.databinding.LayoutListBinding
 import com.android.util.*
-import com.android.video.util.AutoPlayScrollListener
 import com.android.widget.recyclerView.CustomLoadMoreView
 import com.chad.library.adapter.base.module.LoadMoreModule
-import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.item_recommend_header.view.*
@@ -34,17 +27,15 @@ import java.net.URLDecoder
  * Created by xuzhb on 2021/12/30
  * Desc:推荐
  */
-class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, RecommendViewModel>() {
+class RecommendFragment : CommonListPlayFragment<RecommendViewModel>() {
 
     companion object {
         fun newInstance() = RecommendFragment()
     }
 
-    private var isFullScreen = false
-    private var mAutoPlayScrollListener: AutoPlayScrollListener? = null
     private var hasNoticeDataChange = false
 
-    override fun getAdapter() = CommonAdapter()
+    override fun getAdapter() = CommonHomeAdapter()
 
     override fun getFirstPageUrl() = UrlConstant.FEED
 
@@ -78,31 +69,16 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
     }
 
     override fun initListener() {
-        val playTop = ScreenUtil.getScreenHeight() / 2 - SizeUtil.dp2pxInt(300f)
-        val playBottom = ScreenUtil.getScreenHeight() / 2 + SizeUtil.dp2pxInt(300f)
-        mAutoPlayScrollListener = AutoPlayScrollListener(R.id.video_player, playTop, playBottom)
-        val manager: LinearLayoutManager = mRecyclerView!!.layoutManager as LinearLayoutManager
-        mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                mAutoPlayScrollListener?.onScrollStateChanged(recyclerView, newState)
-            }
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val firstVisibleItem = manager.findFirstVisibleItemPosition()
-                val lastVisibleItem = manager.findLastVisibleItemPosition()
-                //滑动自动播放
-                if (!isFullScreen) {
-                    mAutoPlayScrollListener?.visibleCount = lastVisibleItem - firstVisibleItem
-                }
-            }
-        })
+        super.initListener()
         mAdapter.setOnItemClickListener { adapter, view, position ->
             val item = mAdapter.getItem(position)
             VideoDetailActivity.start(mContext, item)
         }
     }
+
+    override fun getPlayRangeTop() = ScreenUtil.getScreenHeight() / 2 - SizeUtil.dp2pxInt(300f)
+
+    override fun getPlayRangeBottom() = ScreenUtil.getScreenHeight() / 2 + SizeUtil.dp2pxInt(300f)
 
     override fun convertData(response: MutableList<ItemBean>?): MutableList<ItemBean>? {
         val list: MutableList<ItemBean> = FilterUtil.filterVideoList(response)
@@ -121,30 +97,6 @@ class RecommendFragment : BaseListFragment<ItemBean, LayoutListBinding, Recommen
             hasNoticeDataChange = true
         }
         return list
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        isFullScreen = newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_USER
-    }
-
-    override fun onPause() {
-        super.onPause()
-        GSYVideoManager.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        GSYVideoManager.onResume()
-        if (hasDataLoadedSuccess) {
-            //切换回来后播放当前页面可见的视频
-            mAutoPlayScrollListener?.onScrollStateChanged(mRecyclerView, 0)
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        GSYVideoManager.releaseAllVideos()
     }
 
     private fun initBanner(list: MutableList<ItemBean.ItemX>?) {

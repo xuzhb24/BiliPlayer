@@ -88,8 +88,10 @@ class AutoPlayPageChangeListener(private val viewPager: ViewPager2, private var 
         }
     }
 
+    private var isNeedShowWifiDialog = true
+
     private fun startPlayLogic(gsyBaseVideoPlayer: GSYBaseVideoPlayer, context: Context) {
-        if (!NetworkUtil.isWifiConnected(context)) {
+        if (!NetworkUtil.isWifiConnected(context) && isNeedShowWifiDialog) {
             showWifiDialog(gsyBaseVideoPlayer, context)
             return
         }

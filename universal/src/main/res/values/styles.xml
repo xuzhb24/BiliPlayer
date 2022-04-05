@@ -42,8 +42,15 @@
     <!--水平分界线-->
     <style name="DividerLineStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_height">0.6dp</item>
         <item name="android:background">#ECECEC</item>
+    </style>
+
+    <!--水平分界线-->
+    <style name="GradDividerLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">#F3F3F5</item>
     </style>
 
     <!--向上弹出的平移动画-->

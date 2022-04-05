@@ -90,4 +90,21 @@
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
 
+    <!--点击展开/收起的TextView-->
+    <declare-styleable name="ExpandTextView">
+        <attr name="maxShowLines" format="integer" />
+        <attr name="lineSpacing" format="dimension" />
+        <attr name="contentText" format="string" />
+        <attr name="contentSuffixText" format="string" />
+        <attr name="contentTextSize" format="dimension" />
+        <attr name="contentTextColor" format="color" />
+        <attr name="labelExpandText" format="string" />
+        <attr name="labelShrinkText" format="string" />
+        <attr name="labelTextSize" format="dimension" />
+        <attr name="labelTextColor" format="color" />
+        <attr name="labelMarginLeft" format="dimension" />
+        <attr name="labelMarginRight" format="dimension" />
+        <attr name="boundsAlign" format="boolean" />
+    </declare-styleable>
+
 </resources>

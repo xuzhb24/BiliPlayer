@@ -22,7 +22,7 @@ import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
  * Created by xuzhb on 2022/1/11
  * Desc:首页-推荐、热门
  */
-class CommonAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(), LoadMoreModule {
+class CommonHomeAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(), LoadMoreModule {
 
     companion object {
         private const val TAG = "RecommendAdapter"

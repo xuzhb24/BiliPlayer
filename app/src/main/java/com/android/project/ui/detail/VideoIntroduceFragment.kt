@@ -59,9 +59,17 @@ class VideoIntroduceFragment : CommonBaseFragment<FragmentVideoIntroduceBinding>
         mItemBean?.let {
             binding.topCl.visible()
             showImageByCenterCrop(binding.headIv, getVideoAuthor(it)?.icon ?: "", CircleCrop())
-            binding.upTv.text = getVideoAuthor(it)?.name
-            binding.upDescTv.text = getVideoAuthor(it)?.description
-            binding.titleTv.text = getVideoTitle(it)
+            val author = getVideoAuthor(it)
+            val owner = getVideoOwner(it)
+            if (author != null) {
+                binding.upTv.text = author.name
+                binding.upDescTv.text = author.description
+            } else {
+                binding.upTv.text = owner?.nickname
+                binding.upDescTv.text = owner?.description
+            }
+            val title = if (getVideoTitle(it).isNotBlank()) getVideoTitle(it) else getVideoDescription(it)
+            binding.titleTv.text = title
             binding.commentTv.text = formatCountStr(getVideoReplyCount(it))
             binding.timeTv.text = DateUtil.long2String(getVideoReleaseTime(it), DateUtil.Y_M_D_H_M)
             binding.praiseTv.text = formatCountStr(getVideoCollectionCount(it), "点赞")

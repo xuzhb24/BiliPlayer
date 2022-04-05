@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="13dp">
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:layout_gravity="center_vertical"
+            android:text="最常访问"
+            android:textSize="13.5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/meet_more_tv"
+            style="@style/CommonTextStyle"
+            android:layout_gravity="center_vertical|right"
+            android:drawableRight="@drawable/ic_arrow_right_gray"
+            android:gravity="center"
+            android:text="查看更多"
+            android:textColor="#989898"
+            android:textSize="12sp" />
+
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meet_rv"
+        style="@style/RecyclerViewStyle"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp" />
+
+    <View style="@style/GradDividerLineStyle" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="13dp">
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:layout_gravity="center_vertical"
+            android:text="我的追番·追剧"
+            android:textSize="13.5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/fanju_more_tv"
+            style="@style/CommonTextStyle"
+            android:layout_gravity="center_vertical|right"
+            android:drawableRight="@drawable/ic_arrow_right_gray"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="#989898"
+            android:textSize="12sp" />
+
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fanju_rv"
+        style="@style/RecyclerViewStyle"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp" />
+
+    <View style="@style/GradDividerLineStyle" />
+
+</LinearLayout>

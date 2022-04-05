@@ -21,6 +21,12 @@ object UrlConstant {
     //总榜
     const val HISTORICAL = "http://baobab.kaiyanapp.com/api/v4/rankList/videos?strategy=historical"
 
+    //社区
+    const val REC = "http://baobab.kaiyanapp.com/api/v7/community/tab/rec"
+
+    //关注
+    const val FOLLOW = "http://baobab.kaiyanapp.com/api/v4/tabs/follow"
+
     //相关推荐
     const val RELATED = "http://baobab.kaiyanapp.com/api/v4/video/related?id="
 

@@ -4,7 +4,6 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.android.project.R
 import com.android.project.entity.ItemBean
-import com.android.util.DigitalUtil
 import com.android.util.LogUtil
 import com.android.util.SizeUtil
 import com.android.util.glide.GlideUtil
@@ -212,7 +211,7 @@ fun getVideoReplyCount(itemBean: ItemBean?): Int {
 fun getVideoCategory(itemBean: ItemBean?): String {
     return if (itemBean?.data?.content != null) {
         val category = itemBean.data.content.data.category ?: ""
-        LogUtil.i("video_category", "from data:$category")
+        LogUtil.i("video_category", "from content:$category")
         category
     } else {
         val category = itemBean?.data?.category ?: ""
@@ -229,8 +228,21 @@ fun getVideoAuthor(itemBean: ItemBean?): ItemBean.Author? {
         author
     } else {
         val author = itemBean?.data?.author
-        LogUtil.i("video_author", "from content:${author?.id} ${author?.name}")
+        LogUtil.i("video_author", "from data:${author?.id} ${author?.name}")
         author
+    }
+}
+
+//获取视频作者
+fun getVideoOwner(itemBean: ItemBean?): ItemBean.Owner? {
+    return if (itemBean?.data?.content != null) {
+        val owner = itemBean.data.content.data.owner
+        LogUtil.i("video_owner", "from content:${owner?.nickname} ${owner?.description}")
+        owner
+    } else {
+        val owner = itemBean?.data?.owner
+        LogUtil.i("video_owner", "from data:${owner?.nickname} ${owner?.description}")
+        owner
     }
 }
 

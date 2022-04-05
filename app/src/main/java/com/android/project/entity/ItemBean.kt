@@ -335,9 +335,12 @@ data class ItemBean(
         val webAdTrack: Any?,
         val webUrl: WebUrl?,
         val image: String?,
+        val icon: String?,
         val actionUrl: String?,
         val text: String?,
         val owner: Owner?,
+        val follow: Follow,
+        val urls: MutableList<String>,
         val width: Int?,
         val height: Int?
     )

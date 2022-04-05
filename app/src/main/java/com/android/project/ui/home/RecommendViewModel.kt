@@ -1,10 +1,10 @@
 package com.android.project.ui.home
 
 import androidx.lifecycle.MutableLiveData
-import com.android.base.BaseListViewModel
 import com.android.project.entity.ItemBean
 import com.android.project.server.ApiHelper
 import com.android.project.server.UrlConstant
+import com.android.project.ui.common.CommonListViewModel
 import com.android.project.util.Constant
 import kotlinx.coroutines.async
 
@@ -12,7 +12,7 @@ import kotlinx.coroutines.async
  * Created by xuzhb on 2022/1/18
  * Desc:
  */
-class RecommendViewModel : BaseListViewModel<ItemBean>() {
+class RecommendViewModel : CommonListViewModel() {
 
     var bannerData = MutableLiveData<MutableList<ItemBean.ItemX>>()
 

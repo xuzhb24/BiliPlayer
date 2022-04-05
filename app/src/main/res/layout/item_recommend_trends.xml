@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_item_layout_bg">
+
+    <ImageView
+        android:id="@+id/head_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="13dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tool:src="@drawable/ic_place_holder_square" />
+
+    <TextView
+        android:id="@+id/name_tv"
+        style="@style/CommonTextStyle"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="1dp"
+        android:textColor="#FB7299"
+        app:layout_constraintLeft_toRightOf="@+id/head_iv"
+        app:layout_constraintTop_toTopOf="@+id/head_iv"
+        tool:text="超感官世界" />
+
+    <TextView
+        android:id="@+id/desc_tv"
+        style="@style/CommonTextStyle"
+        android:layout_width="200dp"
+        android:layout_marginBottom="1dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/head_iv"
+        app:layout_constraintLeft_toLeftOf="@+id/name_tv"
+        tool:text="超感官世界" />
+
+    <LinearLayout
+        android:layout_width="68dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="13dp"
+        android:background="@drawable/shape_focus_btn_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_pink" />
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:layout_marginStart="5dp"
+            android:text="关注"
+            android:textColor="@color/colorOnPrimary"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/video_rv"
+        style="@style/RecyclerViewStyle"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9.5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="9.5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head_iv" />
+
+    <View
+        style="@style/DividerLineStyle"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_rv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

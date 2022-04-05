@@ -9,6 +9,8 @@ import java.util.*
  */
 object JsonUtil {
 
+    private const val TAG = "JsonUtil"
+
     //格式化Json字符串
     fun formatJson(strJson: String): String {
         // 计数tab的个数
@@ -77,6 +79,17 @@ object JsonUtil {
             e.printStackTrace()
         }
         return list
+    }
+
+    fun printString(strJson: String, tag: String = TAG) {
+        LogUtil.logLongTag(tag, " \n===============================\n${formatJson(strJson)}\n===============================")
+    }
+
+    fun printObject(obj: Any, tag: String = TAG) {
+        LogUtil.logLongTag(
+            tag,
+            " \n===============================\n${formatJson(Gson().toJson(obj))}\n==============================="
+        )
     }
 
 }

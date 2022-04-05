@@ -1,4 +1,4 @@
-package com.android.project.ui.home
+package com.android.project.ui.common
 
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -8,10 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.base.BaseListFragment
+import com.android.base.BaseListViewModel
 import com.android.project.R
-import com.android.project.adapter.ListVideoAdapter
 import com.android.project.entity.ItemBean
-import com.android.project.ui.detail.VideoDetailActivity
 import com.android.universal.databinding.LayoutListBinding
 import com.android.util.ScreenUtil
 import com.android.util.SizeUtil
@@ -19,19 +18,22 @@ import com.android.video.util.AutoPlayScrollListener
 import com.android.widget.recyclerView.CustomLoadMoreView
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.shuyu.gsyvideoplayer.GSYVideoManager
+import java.lang.reflect.ParameterizedType
 
 /**
- * Created by xuzhb on 2022/1/25
- * Desc:通用的列表视频的Fragment
+ * Created by xuzhb on 2022/3/31
+ * Desc:通用的列表视频播放Fragment
  */
-abstract class CommonListVideoFragment : BaseListFragment<ItemBean, LayoutListBinding, CommonListViewModel>() {
+abstract class CommonListPlayFragment<VM : CommonListViewModel> : BaseListFragment<ItemBean, LayoutListBinding, VM>() {
 
     private var isFullScreen = false
     private var mAutoPlayScrollListener: AutoPlayScrollListener? = null
 
     override fun initViewBindingAndViewModel() {
         binding = LayoutListBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this).get(CommonListViewModel::class.java)
+        val superclass = javaClass.genericSuperclass
+        val vmClass = (superclass as ParameterizedType).actualTypeArguments[0] as Class<VM>
+        viewModel = ViewModelProvider(this).get(vmClass)
     }
 
     override fun initAdapter() {
@@ -45,38 +47,25 @@ abstract class CommonListVideoFragment : BaseListFragment<ItemBean, LayoutListBi
         mRecyclerView?.adapter = mAdapter
     }
 
-    override fun getAdapter() = ListVideoAdapter()
-
     override fun handleView(savedInstanceState: Bundle?) {
         mLoadingLayout?.setBackgroundColor(Color.parseColor("#F3F3F5"))
     }
 
     override fun initListener() {
-        val playTop = ScreenUtil.getScreenHeight() / 2 - SizeUtil.dp2pxInt(220f)
-        val playBottom = ScreenUtil.getScreenHeight() / 2 + SizeUtil.dp2pxInt(160f)
-        mAutoPlayScrollListener = AutoPlayScrollListener(R.id.video_player, playTop, playBottom)
-        val manager: LinearLayoutManager = mRecyclerView!!.layoutManager as LinearLayoutManager
-        mRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                mAutoPlayScrollListener?.onScrollStateChanged(recyclerView, newState)
-            }
-
+        mAutoPlayScrollListener = object : AutoPlayScrollListener(R.id.video_player, getPlayRangeTop(), getPlayRangeBottom()) {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val firstVisibleItem = manager.findFirstVisibleItemPosition()
-                val lastVisibleItem = manager.findLastVisibleItemPosition()
-                //滑动自动播放
-                if (!isFullScreen) {
-                    mAutoPlayScrollListener?.visibleCount = lastVisibleItem - firstVisibleItem
-                }
+                mSwipeRefreshLayout?.isEnabled = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 0
             }
-        })
-        mAdapter.setOnItemClickListener { adapter, view, position ->
-            val item = mAdapter.getItem(position)
-            VideoDetailActivity.start(mContext, item)
         }
+        mRecyclerView?.addOnScrollListener(mAutoPlayScrollListener!!)
     }
+
+    //视频播放区域的上边界
+    protected open fun getPlayRangeTop() = ScreenUtil.getScreenHeight() / 2 - SizeUtil.dp2pxInt(220f)
+
+    //视频播放区域的下边界
+    protected open fun getPlayRangeBottom() = ScreenUtil.getScreenHeight() / 2 + SizeUtil.dp2pxInt(160f)
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -97,10 +86,10 @@ abstract class CommonListVideoFragment : BaseListFragment<ItemBean, LayoutListBi
 
     override fun onResume() {
         super.onResume()
-        GSYVideoManager.onResume()
+//        GSYVideoManager.onResume()
         if (hasDataLoadedSuccess) {
             //切换回来后播放当前页面可见的视频
-            mAutoPlayScrollListener?.onScrollStateChanged(mRecyclerView, 0)
+            mAutoPlayScrollListener?.onResume(mRecyclerView!!)
         }
     }
 

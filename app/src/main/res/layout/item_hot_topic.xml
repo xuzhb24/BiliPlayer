@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/topic_tv"
+        style="@style/CommonTextStyle"
+        android:drawableLeft="@drawable/ic_topic"
+        android:drawablePadding="3dp"
+        android:gravity="center"
+        android:paddingStart="13dp"
+        android:paddingTop="6.5dp"
+        android:paddingEnd="13dp"
+        android:paddingBottom="6.5dp"
+        android:textSize="13sp"
+        tool:text="见字如面" />
+
+</LinearLayout>

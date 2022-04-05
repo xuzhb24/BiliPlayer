@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.util.LogUtil
 import com.android.util.NetworkUtil
@@ -15,36 +16,54 @@ import com.shuyu.gsyvideoplayer.utils.NetworkUtils
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer
 
 /**
- * Created by xuzhb on 2022/1/27
+ * Created by xuzhb on 2022/3/31
  * Desc:RecyclerView列表自动播放监听类
  */
-class AutoPlayScrollListener(
+open class AutoPlayScrollListener(
     private val playId: Int,
     private val rangeTop: Int,
     private val rangeBottom: Int
-) {
+) : RecyclerView.OnScrollListener() {
 
     companion object {
-        private const val TAG = "ScrollCalculatorHelper"
+        private const val TAG = "AutoPlayScrollListener"
     }
 
-    //可见个数
-    var visibleCount = 0
-
-    private val playHandler = Handler()
+    private var firstVisible = 0
+    private var lastVisible = 0
+    private var visibleCount = 0
     private var runnable: PlayRunnable? = null
+    private val playHandler = Handler()
 
-    fun onScrollStateChanged(view: RecyclerView?, scrollState: Int) {
+    override fun onScrollStateChanged(recyclerView: RecyclerView, scrollState: Int) {
         when (scrollState) {
-            RecyclerView.SCROLL_STATE_IDLE -> playVideo(view)
+            RecyclerView.SCROLL_STATE_IDLE -> playVideo(recyclerView)
         }
     }
 
-    private fun playVideo(view: RecyclerView?) {
-        if (view == null) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        super.onScrolled(recyclerView, dx, dy)
+        initVisibleCount(recyclerView)
+    }
+
+    fun onResume(recyclerView: RecyclerView) {
+        initVisibleCount(recyclerView)
+        playVideo(recyclerView)
+    }
+
+    private fun initVisibleCount(recyclerView: RecyclerView) {
+        val firstVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+        val lastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+        firstVisible = firstVisibleItem
+        lastVisible = lastVisibleItem
+        visibleCount = lastVisibleItem - firstVisibleItem
+    }
+
+    private fun playVideo(recyclerView: RecyclerView?) {
+        if (recyclerView == null) {
             return
         }
-        val layoutManager = view.layoutManager
+        val layoutManager = recyclerView.layoutManager
         var gsyBaseVideoPlayer: GSYBaseVideoPlayer? = null
         var needPlay = false
         for (i in 0 until visibleCount) {
@@ -102,8 +121,10 @@ class AutoPlayScrollListener(
         }
     }
 
+    private var isNeedShowWifiDialog = true
+
     private fun startPlayLogic(gsyBaseVideoPlayer: GSYBaseVideoPlayer, context: Context) {
-        if (!NetworkUtil.isWifiConnected(context)) {
+        if (!NetworkUtil.isWifiConnected(context) && isNeedShowWifiDialog) {
             showWifiDialog(gsyBaseVideoPlayer, context)
             return
         }
