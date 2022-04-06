@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.android.widget.TitleBar
+        style="@style/TitleBarStyle"
+        app:rightIcon="@drawable/ic_find_deselected"
+        app:showLeftIcon="false"
+        app:showRightIcon="true"
+        app:titleText="主题"
+        app:titleTextColor="#757575" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout style="@style/SwipeRefreshLayoutStyle">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/title_bar"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3.5dp"
+                android:layout_marginEnd="5dp"
+                android:overScrollMode="never" />
+
+            <com.android.widget.CustomViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="33.5dp"
+                android:overScrollMode="never" />
+
+            <View
+                android:id="@+id/divider_view"
+                style="@style/DividerLineStyle"
+                android:layout_marginTop="33.5dp"
+                android:visibility="invisible" />
+
+            <com.android.widget.LoadingLayout style="@style/LoadingLayoutStyle" />
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import com.android.http.RetrofitFactory
 import com.android.http.model.BaseListResponse
 import com.android.project.entity.ItemBean
 import com.android.project.entity.ReplyBean
+import com.android.project.entity.TabBean
 import okhttp3.Interceptor
 import retrofit2.Converter
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,6 +49,11 @@ object ApiHelper {
     //评论
     suspend fun replies(videoId: String): BaseListResponse<ReplyBean> {
         return createService(Config.BASE_URL).replies(videoId)
+    }
+
+    //主题
+    suspend fun tabList(): TabBean {
+        return createService(Config.BASE_URL).tabList()
     }
 
     private fun createService(

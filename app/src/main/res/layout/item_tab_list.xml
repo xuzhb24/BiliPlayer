@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/head_iv"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        style="@style/CommonTextStyle"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="1dp"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/head_iv"
+        app:layout_constraintTop_toTopOf="@+id/head_iv"
+        tool:text="我叫豌豆脆" />
+
+    <TextView
+        android:id="@+id/desc_tv"
+        style="@style/CommonTextStyle"
+        android:layout_width="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="@+id/title_tv"
+        app:layout_constraintRight_toLeftOf="@+id/focus_tv"
+        app:layout_constraintTop_toBottomOf="@+id/title_tv"
+        tool:text="我叫豌豆脆" />
+
+    <TextView
+        android:id="@+id/focus_tv"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/shape_focus_btn_bg1"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="+ 关注"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/head_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/head_iv" />
+
+    <View
+        style="@style/DividerLineStyle"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head_iv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
