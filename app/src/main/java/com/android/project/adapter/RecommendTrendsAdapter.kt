@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.project.R
 import com.android.project.entity.ItemBean
 import com.android.project.ui.detail.VideoDetailActivity
+import com.android.project.util.showCircleImageByCenterCrop
 import com.android.project.util.showImageByCenterCrop
 import com.android.util.DateUtil
 import com.android.widget.recyclerView.LoadMoreAdapter
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
@@ -19,7 +19,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 class RecommendTrendsAdapter : LoadMoreAdapter<ItemBean>(R.layout.item_recommend_trends) {
     override fun convert(holder: BaseViewHolder, item: ItemBean) {
         val header = item.data.header
-        showImageByCenterCrop(holder.getView(R.id.head_iv), header?.icon ?: "", CircleCrop())
+        showCircleImageByCenterCrop(holder.getView(R.id.head_iv), header?.icon ?: "")
         holder.setText(R.id.name_tv, header?.title ?: "")
             .setText(R.id.desc_tv, if (header?.description.isNullOrBlank()) "暂时没有简介！" else header?.description)
         val videoRv: RecyclerView = holder.getView(R.id.video_rv)

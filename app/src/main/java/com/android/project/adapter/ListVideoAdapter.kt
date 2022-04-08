@@ -77,10 +77,7 @@ class ListVideoAdapter : LoadMoreAdapter<ItemBean>(R.layout.item_list_video) {
             }
         }
         val headerImage = getVideoAuthor(item)?.icon ?: getFirstTag(item)?.headerImage
-        showImageByCenterCrop(
-            holder.getView(R.id.head_iv), headerImage ?: "", CircleCrop(),
-            R.drawable.ic_place_holder_square, R.drawable.ic_place_holder_square
-        )
+        showCircleImageByCenterCrop(holder.getView(R.id.head_iv), headerImage ?: "")
         val name = getVideoAuthor(item)?.name ?: getFirstTag(item)?.name
         val category = getVideoCategory(item)
         val authorDesc = "$name${if (category.isBlank()) "" else "  # $category"}"  //描述

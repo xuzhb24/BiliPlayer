@@ -10,12 +10,10 @@ import com.android.util.gone
 import com.android.util.invisible
 import com.android.util.visible
 import com.android.video.player.SwitchVideoPlayer
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
-import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 
 /**
  * Created by xuzhb on 2022/3/19
@@ -101,10 +99,7 @@ class SwitchDetailAdapter : BaseQuickAdapter<ItemBean, BaseViewHolder>(R.layout.
             })
         }
         val headerImage = item.data.content?.data?.owner?.avatar ?: ""
-        showImageByCenterCrop(
-            holder.getView(R.id.head_iv), headerImage, CircleCrop(),
-            R.drawable.ic_place_holder_square, R.drawable.ic_place_holder_square
-        )
+        showCircleImageByCenterCrop(holder.getView(R.id.head_iv), headerImage)
         holder.setText(R.id.name_tv, item.data.content?.data?.owner?.nickname ?: "")
             .setText(R.id.desc_tv, item.data.content?.data?.owner?.description ?: "")
             .setText(R.id.title_tv, getVideoDescription(item))

@@ -2,10 +2,9 @@ package com.android.project.adapter
 
 import com.android.project.R
 import com.android.project.entity.ItemBean
-import com.android.project.util.showImageByCenterCrop
+import com.android.project.util.showCircleImageByCenterCrop
 import com.android.util.LayoutParamsUtil
 import com.android.util.SizeUtil
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
@@ -16,7 +15,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 class MeetUpAdapter : BaseQuickAdapter<ItemBean, BaseViewHolder>(R.layout.item_meet_up) {
     override fun convert(holder: BaseViewHolder, item: ItemBean) {
         val header = item.data.header
-        showImageByCenterCrop(holder.getView(R.id.head_iv), header?.icon ?: "", CircleCrop())
+        showCircleImageByCenterCrop(holder.getView(R.id.head_iv), header?.icon ?: "")
         holder.setText(R.id.name_tv, header?.title ?: "")
         LayoutParamsUtil.setMarginLeft(
             holder.getView(R.id.content_ll),

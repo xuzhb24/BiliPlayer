@@ -1,7 +1,577 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_cl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/night_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_mine_night"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/skin_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_mine_skin"
+        app:layout_constraintBottom_toBottomOf="@+id/night_iv"
+        app:layout_constraintRight_toLeftOf="@+id/night_iv"
+        app:layout_constraintTop_toTopOf="@+id/night_iv" />
+
+    <ImageView
+        android:id="@+id/scan_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_mine_scan"
+        app:layout_constraintBottom_toBottomOf="@+id/night_iv"
+        app:layout_constraintRight_toLeftOf="@+id/skin_iv"
+        app:layout_constraintTop_toTopOf="@+id/night_iv" />
+
+    <ImageView
+        android:id="@+id/cast_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_mine_cast"
+        app:layout_constraintBottom_toBottomOf="@+id/night_iv"
+        app:layout_constraintRight_toLeftOf="@+id/scan_iv"
+        app:layout_constraintTop_toTopOf="@+id/night_iv" />
+
+    <LinearLayout
+        android:id="@+id/info_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="13dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/avater_iv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_mine_default_avater" />
+
+        <TextView
+            android:id="@+id/name_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:text="点击登录"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mine_arrow_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/trends_ll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/divider_view1"
+        app:layout_constraintTop_toBottomOf="@+id/info_ll">
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:text="-" />
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:layout_marginTop="7dp"
+            android:text="动态"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider_view1"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:background="#ececec"
+        app:layout_constraintBottom_toBottomOf="@id/trends_ll"
+        app:layout_constraintLeft_toRightOf="@+id/trends_ll"
+        app:layout_constraintRight_toLeftOf="@+id/focus_ll"
+        app:layout_constraintTop_toTopOf="@+id/trends_ll" />
+
+    <LinearLayout
+        android:id="@+id/focus_ll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/divider_view1"
+        app:layout_constraintRight_toLeftOf="@+id/divider_view2"
+        app:layout_constraintTop_toTopOf="@+id/trends_ll">
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:text="-" />
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:layout_marginTop="7dp"
+            android:text="关注"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider_view2"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:background="#ececec"
+        app:layout_constraintBottom_toBottomOf="@id/trends_ll"
+        app:layout_constraintLeft_toRightOf="@+id/focus_ll"
+        app:layout_constraintRight_toLeftOf="@+id/fans_ll"
+        app:layout_constraintTop_toTopOf="@+id/trends_ll" />
+
+    <LinearLayout
+        android:id="@+id/fans_ll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/divider_view2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/trends_ll">
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:text="-" />
+
+        <TextView
+            style="@style/CommonTextStyle"
+            android:layout_marginTop="7dp"
+            android:text="粉丝"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/vip_fl"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/shape_vip_bg"
+        app:layout_constraintTop_toBottomOf="@+id/trends_ll">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/shape_vip_inner_bg"
+            android:translationY="3dp">
+
+            <TextView
+                style="@style/CommonTextStyle"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="11dp"
+                android:text="成为大会员"
+                android:textColor="#F76A9C"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/CommonTextStyle"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="13dp"
+                android:layout_marginBottom="12dp"
+                android:text="了解更多权益"
+                android:textColor="#aaF76A9C"
+                android:textSize="11sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_arrow_right_pink" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <androidx.core.widget.NestedScrollView
+        style="@style/ScrollViewStyle"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vip_fl"
+        app:layout_constraintVertical_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/cache_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="13dp"
+                android:drawableTop="@drawable/ic_mine_cache"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="离线缓存"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/history_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/history_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_history"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="历史记录"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/cache_tv"
+                app:layout_constraintRight_toLeftOf="@+id/collect_tv"
+                app:layout_constraintTop_toTopOf="@+id/cache_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/collect_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_collect"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="我的收藏"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/history_tv"
+                app:layout_constraintRight_toLeftOf="@+id/video_tv"
+                app:layout_constraintTop_toTopOf="@+id/cache_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/video_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_video"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="稍后再看"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/collect_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cache_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/tjfw_tv"
+                style="@style/CommonTextStyle"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="25dp"
+                android:text="推荐服务"
+                android:textSize="13.5sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cache_tv" />
+
+            <TextView
+                android:id="@+id/wdkc_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="20dp"
+                android:drawableTop="@drawable/ic_mine_wdkc"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="我的课程"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/mllfw_tv"
+                app:layout_constraintTop_toBottomOf="@+id/tjfw_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/mllfw_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_mllfw"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="免流量服务"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/wdkc_tv"
+                app:layout_constraintRight_toLeftOf="@+id/gxzb_tv"
+                app:layout_constraintTop_toTopOf="@+id/wdkc_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/gxzb_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_gxzb"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="个性装扮"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/mllfw_tv"
+                app:layout_constraintRight_toLeftOf="@+id/yhyzhb_tv"
+                app:layout_constraintTop_toTopOf="@+id/wdkc_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/yhyzhb_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_yhyzhb"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="邀好友赚红包"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/gxzb_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/wdkc_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/wdqb_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="15dp"
+                android:drawableTop="@drawable/ic_mine_wdqb"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="我的钱包"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/yxzx_tv"
+                app:layout_constraintTop_toBottomOf="@+id/wdkc_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/yxzx_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_yxzx"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="游戏中心"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/wdqb_tv"
+                app:layout_constraintRight_toLeftOf="@+id/hygzx_tv"
+                app:layout_constraintTop_toTopOf="@+id/wdqb_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/hygzx_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_hygzx"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="会员购中心"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/yxzx_tv"
+                app:layout_constraintRight_toLeftOf="@+id/zbzx_tv"
+                app:layout_constraintTop_toTopOf="@+id/wdqb_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/zbzx_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_zbzx"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="直播中心"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/hygzx_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/wdqb_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/sqzx_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:layout_marginTop="15dp"
+                android:drawableTop="@drawable/ic_mine_sqzx"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="社区中心"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/blblgy_tv"
+                app:layout_constraintTop_toBottomOf="@+id/wdqb_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/blblgy_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_blblgy"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="哔哩哔哩公益"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/sqzx_tv"
+                app:layout_constraintRight_toLeftOf="@+id/cnlfl_tv"
+                app:layout_constraintTop_toTopOf="@+id/sqzx_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/cnlfl_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_cnlfl"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="充能量领福利"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/blblgy_tv"
+                app:layout_constraintRight_toLeftOf="@+id/nljyz_tv"
+                app:layout_constraintTop_toTopOf="@+id/sqzx_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/nljyz_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="0dp"
+                android:drawableTop="@drawable/ic_mine_nljyz"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="能量加油站"
+                android:textSize="12.5sp"
+                app:layout_constraintLeft_toRightOf="@+id/cnlfl_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sqzx_tv"
+                app:layout_constraintVertical_weight="1" />
+
+            <TextView
+                android:id="@+id/gdfw_tv"
+                style="@style/CommonTextStyle"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="25dp"
+                android:text="更多服务"
+                android:textSize="13.5sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sqzx_tv" />
+
+            <TextView
+                android:id="@+id/lxkf_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/ic_mine_lxkf"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="联系客服"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gdfw_tv" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_mine_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@id/lxkf_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lxkf_tv" />
+
+            <TextView
+                android:id="@+id/ktms_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:drawableLeft="@drawable/ic_mine_ktms"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="课堂模式"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lxkf_tv" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_mine_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@id/ktms_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ktms_tv" />
+
+            <TextView
+                android:id="@+id/qsnms_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:drawableLeft="@drawable/ic_mine_qsnms"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="青少年模式"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ktms_tv" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_mine_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@id/qsnms_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/qsnms_tv" />
+
+            <TextView
+                android:id="@+id/sz_tv"
+                style="@style/CommonTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:drawableLeft="@drawable/ic_mine_sz"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="设置"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qsnms_tv" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_mine_arrow_right"
+                app:layout_constraintBottom_toBottomOf="@id/sz_tv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sz_tv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

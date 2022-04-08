@@ -2,11 +2,10 @@ package com.android.project.adapter
 
 import com.android.project.R
 import com.android.project.entity.ReplyBean
-import com.android.project.util.showImageByCenterCrop
+import com.android.project.util.showCircleImageByCenterCrop
 import com.android.util.DateUtil
 import com.android.util.formatCountStr
 import com.android.widget.recyclerView.LoadMoreAdapter
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
 /**
@@ -23,7 +22,7 @@ class VideoReplyAdapter : LoadMoreAdapter<ReplyBean>(R.layout.item_video_reply) 
             } else {
                 DateUtil.long2String(createTime, DateUtil.Y_M_D) ?: ""  //往年
             }
-        showImageByCenterCrop(holder.getView(R.id.head_iv), item.data?.user?.avatar ?: "", CircleCrop())
+        showCircleImageByCenterCrop(holder.getView(R.id.head_iv), item.data?.user?.avatar ?: "")
         holder.setText(R.id.name_tv, item.data?.user?.nickname ?: "")
             .setText(R.id.time_tv, createTimeStr)
             .setText(R.id.message_tv, item.data?.message ?: "")

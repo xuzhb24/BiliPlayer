@@ -13,7 +13,6 @@ import com.android.project.util.*
 import com.android.util.*
 import com.android.video.player.TrendsVideoPlayer
 import com.android.widget.ExpandTextView
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
@@ -94,7 +93,7 @@ class CommonTrendsAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(
             }
         }
         val owner = item.data.content?.data?.owner
-        showImageByCenterCrop(holder.getView(R.id.head_iv), owner?.avatar ?: "", CircleCrop())
+        showCircleImageByCenterCrop(holder.getView(R.id.head_iv), owner?.avatar ?: "")
         val titleEtv: ExpandTextView = holder.getView(R.id.title_etv)
         titleEtv.contentText = getVideoDescription(item)
         titleEtv.setOnTextClickListener(object : ExpandTextView.OnTextClickListener {
@@ -138,7 +137,7 @@ class CommonTrendsAdapter : BaseMultiItemQuickAdapter<ItemBean, BaseViewHolder>(
             setNewInstance(result)
         }
         val owner = item.data.content?.data?.owner
-        showImageByCenterCrop(holder.getView(R.id.head_iv), owner?.avatar ?: "", CircleCrop())
+        showCircleImageByCenterCrop(holder.getView(R.id.head_iv), owner?.avatar ?: "")
         val titleEtv: ExpandTextView = holder.getView(R.id.title_etv)
         titleEtv.contentText = getVideoDescription(item)
         titleEtv.setOnTextClickListener(object : ExpandTextView.OnTextClickListener {

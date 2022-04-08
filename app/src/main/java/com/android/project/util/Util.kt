@@ -9,6 +9,7 @@ import com.android.util.SizeUtil
 import com.android.util.glide.GlideUtil
 import com.android.util.glide.SectionRoundedCorners
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 /**
@@ -43,6 +44,15 @@ fun showImageByCenterCrop(
         ),
         placeResId, placeResId
     )
+}
+
+//显示圆形图片
+fun showCircleImageByCenterCrop(
+    iv: ImageView,
+    url: String,
+    @DrawableRes placeResId: Int = R.drawable.ic_place_holder_avater
+) {
+    showImageByCenterCrop(iv, url, CircleCrop(), placeResId, placeResId)
 }
 
 //显示图片，图片缩放格式为CenterCrop

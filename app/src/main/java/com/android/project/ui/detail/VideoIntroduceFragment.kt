@@ -13,7 +13,6 @@ import com.android.project.entity.ItemBean
 import com.android.project.ui.entry.GuideActivity
 import com.android.project.util.*
 import com.android.util.*
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.flexbox.FlexboxLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -58,7 +57,7 @@ class VideoIntroduceFragment : CommonBaseFragment<FragmentVideoIntroduceBinding>
         binding.topCl.gone()
         mItemBean?.let {
             binding.topCl.visible()
-            showImageByCenterCrop(binding.headIv, getVideoAuthor(it)?.icon ?: "", CircleCrop())
+            showCircleImageByCenterCrop(binding.headIv, getVideoAuthor(it)?.icon ?: "")
             val author = getVideoAuthor(it)
             val owner = getVideoOwner(it)
             if (author != null) {
