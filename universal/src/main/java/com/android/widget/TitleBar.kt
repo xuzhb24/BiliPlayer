@@ -34,7 +34,7 @@ class TitleBar @JvmOverloads constructor(
     var leftIcon: Drawable? = null  //左侧图标
         set(value) {
             field = value
-            value?.let { mLeftIv.setImageDrawable(it) }
+            mLeftIv.setImageDrawable(value)
         }
     var leftIconMargin: Float = 0f  //左侧图标的左边距
         set(value) {
@@ -53,7 +53,7 @@ class TitleBar @JvmOverloads constructor(
     var rightIcon: Drawable? = null  //右侧图标
         set(value) {
             field = value
-            value?.let { mRightIv.setImageDrawable(it) }
+            mRightIv.setImageDrawable(value)
         }
     var rightIconMargin: Float = 0f  //右侧图标的右边距
         set(value) {

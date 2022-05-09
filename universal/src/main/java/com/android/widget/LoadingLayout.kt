@@ -71,7 +71,7 @@ class LoadingLayout @JvmOverloads constructor(
             field = value
             setActionText(mActionTv, value)
         }
-    private var intercept: Boolean = true  //是否拦截点击事件，为true时底下的View无法收到点击事件
+    var intercept: Boolean = true  //是否拦截点击事件，为true时底下的View无法收到点击事件
 
     //获取根布局，以便设置布局的LayoutParams
     fun getRootLayout(): LinearLayout = mRootLayout

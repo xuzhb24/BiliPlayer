@@ -11,6 +11,7 @@ import com.android.project.adapter.MeetUpAdapter
 import com.android.project.entity.ItemBean
 import com.android.project.server.UrlConstant
 import com.android.project.ui.common.CommonListPlayFragment
+import com.android.project.ui.detail.PhotoDetailActivity
 import com.android.project.ui.detail.VideoDetailActivity
 import com.android.project.util.Constant
 import com.android.project.util.getVideoDescription
@@ -44,7 +45,7 @@ class AllTrendsFragment : CommonListPlayFragment<AllTrendsViewModel>() {
             val item = mAdapter.getItem(position)
             when (item.itemType) {
                 Constant.ITEM_TYPE_VIDEO -> VideoDetailActivity.start(mContext, item)
-                Constant.ITEM_TYPE_PHOTO -> showToast("待实现")
+                Constant.ITEM_TYPE_PHOTO -> PhotoDetailActivity.start(mContext, item)
             }
         }
     }

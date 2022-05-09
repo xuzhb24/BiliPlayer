@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/root_fl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <com.android.project.widget.PhotoViewPager
+        android:id="@+id/photo_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+    <com.android.widget.TitleBar
+        style="@style/TitleBarStyle"
+        android:background="@android:color/transparent"
+        app:leftIcon="@drawable/ic_photo_close"
+        app:leftIconMargin="15dp"
+        app:rightIcon="@drawable/ic_dot_while"
+        app:rightIconMargin="5dp"
+        app:showDividerLine="false"
+        app:showRightIcon="true"
+        app:titleTextColor="@color/white" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/share_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="7dp"
+            android:drawableTop="@drawable/ic_photo_share"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tool:text="6" />
+
+        <TextView
+            android:id="@+id/comment_tv"
+            style="@style/CommonTextStyle"
+            android:drawableTop="@drawable/ic_photo_comment"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/share_tv"
+            tool:text="6" />
+
+        <TextView
+            android:id="@+id/praise_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginEnd="30dp"
+            android:drawableTop="@drawable/ic_photo_praise"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/share_tv"
+            tool:text="6" />
+
+        <com.android.widget.ExpandTextView
+            android:id="@+id/title_etv"
+            style="@style/CommonTextStyle"
+            android:layout_width="match_parent"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="10dp"
+            app:contentTextColor="@color/white"
+            app:contentTextSize="13sp"
+            app:labelTextColor="#008AC5"
+            app:labelTextSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/share_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:maxShowLines="2"
+            tool:text="哈哈哈哈哈哈哈哈哈哈或红红火火恍恍惚惚哈哈哈哈" />
+
+        <ImageView
+            android:id="@+id/head_iv"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_oval_solid_f3f3f3_size_30"
+            android:padding="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/title_etv"
+            app:layout_constraintLeft_toLeftOf="@+id/title_etv"
+            tool:src="@drawable/ic_place_holder_avater" />
+
+        <TextView
+            android:id="@+id/name_tv"
+            style="@style/CommonTextStyle"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/head_iv"
+            app:layout_constraintTop_toTopOf="@+id/head_iv"
+            tool:text="米错米错" />
+
+        <TextView
+            android:id="@+id/desc_tv"
+            style="@style/CommonTextStyle"
+            android:layout_width="200dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/gray"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/head_iv"
+            app:layout_constraintLeft_toLeftOf="@+id/name_tv"
+            tool:text="米错米错米错米错米错米错米错米错米错米错米错米错米错米错" />
+
+        <ImageView
+            android:id="@+id/down_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_arrow_down_white"
+            app:layout_constraintBottom_toBottomOf="@+id/head_iv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/head_iv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/up_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="10dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_up_white"
+        android:visibility="gone" />
+
+</FrameLayout>

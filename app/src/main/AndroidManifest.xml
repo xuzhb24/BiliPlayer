@@ -87,6 +87,16 @@
             android:name=".ui.detail.SwitchDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
+        <!--图片详情页-->
+        <activity
+            android:name=".ui.detail.PhotoDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <!--图片查看页-->
+        <activity
+            android:name=".ui.detail.PhotoViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
         <!--网页-->
         <activity
             android:name=".ui.detail.WebDetailActivity"
