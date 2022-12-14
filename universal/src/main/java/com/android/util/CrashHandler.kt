@@ -3,6 +3,7 @@ package com.android.util
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Environment
 import android.os.Process
 import android.util.Log
 import java.io.BufferedWriter
@@ -54,7 +55,8 @@ class CrashHandler private constructor() : Thread.UncaughtExceptionHandler {
 
     @Throws(Exception::class)
     private fun saveExceptionToCache(e: Throwable) {
-        val fileName = mContext!!.cacheDir.toString() + "/log/crash.trace"
+        val fileName = Environment.getExternalStorageDirectory().absolutePath + File.separator + mContext!!.packageName + File.separator + "/log/crash.trace"
+        LogUtil.i(TAG, fileName)
         val file = File(fileName)
         val dir = file.parentFile
         if (!dir.exists()) {
