@@ -81,5 +81,5 @@ dependencies {
     //GSYVideoPlayer
     api 'com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.1.7-release-jitpack'
     //图片浏览器
-    api 'com.github.chrisbanes:PhotoView:latest.release'
+    api 'com.github.chrisbanes:PhotoView:2.3.0'
 }
